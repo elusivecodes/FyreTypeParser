@@ -110,14 +110,14 @@ class DateTimeType extends Type
 
         $date = null;
 
-        if (ctype_digit($value)) {
-            $date =  DateTimeImmutable::fromTimestamp($value, $this->userTimeZone);
-        } else if ($value instanceof DateTimeImmutable) {
+        if ($value instanceof DateTimeImmutable) {
             $date =  $value;
         } else if ($value instanceof DateTime) {
             $date =  DateTimeImmutable::fromDateTime($value->toDateTime(), $this->userTimeZone);
         } else if ($value instanceof DateTimeInterface) {
             $date =  DateTimeImmutable::fromDateTime($value, $this->userTimeZone);
+        } else if (ctype_digit($value)) {
+            $date =  DateTimeImmutable::fromTimestamp($value, $this->userTimeZone);
         } else if ($this->localeFormat) {
             $tempDate = DateTimeImmutable::fromFormat($this->localeFormat, $value, $this->userTimeZone);
 
