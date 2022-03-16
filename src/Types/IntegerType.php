@@ -21,7 +21,7 @@ class IntegerType extends Type
      * @param mixed $value The user value.
      * @return int|null The PHP value.
      */
-    public function parse($value): int|null
+    public function parse(mixed $value): int|null
     {
         if ($value === null) {
             return null;

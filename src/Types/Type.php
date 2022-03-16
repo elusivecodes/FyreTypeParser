@@ -14,7 +14,7 @@ abstract class Type
      * @param mixed $value The database value.
      * @return mixed The PHP value.
      */
-    public function fromDatabase($value)
+    public function fromDatabase(mixed $value): mixed
     {
         return $this->parse($value);
     }
@@ -24,7 +24,7 @@ abstract class Type
      * @param mixed $value The user value.
      * @return mixed The PHP value.
      */
-    public function parse($value)
+    public function parse(mixed $value): mixed
     {
         return $value;
     }
@@ -34,7 +34,7 @@ abstract class Type
      * @param mixed $value The PHP value.
      * @return mixed The database value.
      */
-    public function toDatabase($value)
+    public function toDatabase(mixed $value): mixed
     {
         return $this->parse($value);
     }

@@ -21,7 +21,7 @@ class FloatType extends Type
      * @param mixed $value The user value.
      * @return float|null The PHP value.
      */
-    public function parse($value): float|null
+    public function parse(mixed $value): float|null
     {
         if ($value === null) {
             return null;

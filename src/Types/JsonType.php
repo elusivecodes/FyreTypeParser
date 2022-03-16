@@ -20,7 +20,7 @@ class JsonType extends Type
      * @param mixed $value The database value.
      * @return mixed The PHP value.
      */
-    public function fromDatabase($value)
+    public function fromDatabase(mixed $value): mixed
     {
         if ($value === null) {
             return null;
@@ -46,7 +46,7 @@ class JsonType extends Type
      * @param mixed $value The PHP value.
      * @return string|null The database value.
      */
-    public function toDatabase($value): string|null
+    public function toDatabase(mixed $value): string|null
     {
         if ($value === null) {
             return null;

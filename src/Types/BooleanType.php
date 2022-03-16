@@ -21,7 +21,7 @@ class BooleanType extends Type
      * @param mixed $value The user value.
      * @return bool|null The PHP value.
      */
-    public function parse($value): bool|null
+    public function parse(mixed $value): bool|null
     {
         if ($value === null || $value === '') {
             return null;

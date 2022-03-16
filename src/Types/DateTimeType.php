@@ -12,6 +12,7 @@ use
 use function
     array_unshift,
     ctype_digit,
+    is_scalar,
     is_string;
 
 /**
@@ -43,7 +44,7 @@ class DateTimeType extends Type
      * @param mixed $value The database value.
      * @return DateTimeImmutable|null The PHP value.
      */
-    public function fromDatabase($value): DateTimeImmutable|null
+    public function fromDatabase(mixed $value): DateTimeImmutable|null
     {
         if ($value === null) {
             return null;
@@ -102,7 +103,7 @@ class DateTimeType extends Type
      * @param mixed $value The user value.
      * @return DateTimeImmutable|null The PHP value.
      */
-    public function parse($value): DateTimeImmutable|null
+    public function parse(mixed $value): DateTimeImmutable|null
     {
         if ($value === null) {
             return null;
@@ -110,14 +111,14 @@ class DateTimeType extends Type
 
         $date = null;
 
-        if ($value instanceof DateTimeImmutable) {
+        if (is_scalar($value) && ctype_digit($value)) {
+            $date =  DateTimeImmutable::fromTimestamp($value, $this->userTimeZone);
+        } else if ($value instanceof DateTimeImmutable) {
             $date =  $value;
         } else if ($value instanceof DateTime) {
             $date =  DateTimeImmutable::fromDateTime($value->toDateTime(), $this->userTimeZone);
         } else if ($value instanceof DateTimeInterface) {
             $date =  DateTimeImmutable::fromDateTime($value, $this->userTimeZone);
-        } else if (ctype_digit($value)) {
-            $date =  DateTimeImmutable::fromTimestamp($value, $this->userTimeZone);
         } else if ($this->localeFormat) {
             $tempDate = DateTimeImmutable::fromFormat($this->localeFormat, $value, $this->userTimeZone);
 
@@ -191,7 +192,7 @@ class DateTimeType extends Type
      * @param mixed $value The PHP value.
      * @return string|null The database value.
      */
-    public function toDatabase($value): string|null
+    public function toDatabase(mixed $value): string|null
     {
         $value = $this->parse($value);
 
