@@ -23,7 +23,7 @@ class DecimalType extends Type
             return null;
         }
 
-        return $value;
+        return (string) $value;
     }
 
 }
