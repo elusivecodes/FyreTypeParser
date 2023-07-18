@@ -1,6 +1,6 @@
 # FyreTypeParser
 
-**FyreTypeParser** is a free, database type parser library for *PHP*.
+**FyreTypeParser** is a free, open-source database type parser library for *PHP*.
 
 
 ## Table Of Contents
@@ -37,12 +37,20 @@ TypeParser::clear();
 
 **Get Type**
 
-Get a *Type* class for a value type.
+Get the mapped [*Type*](#types) class for a value type.
 
 - `$type` is a string representing the value type.
 
 ```php
-$parser = TypeParser::getType($type);
+$typeClass = TypeParser::getType($type);
+```
+
+**Get Type Map**
+
+Get the type class map.
+
+```php
+$typeMap = TypeParser::getTypeMap();
 ```
 
 **Map Type**
@@ -54,6 +62,16 @@ Map a value type to a class.
 
 ```php
 TypeParser::mapType($type, $typeClass);
+```
+
+**Use**
+
+Load a shared [*Type*](#types) instance for a value type.
+
+- `$type` is a string representing the value type.
+
+```php
+$parser = TypeParser::getType($type);
 ```
 
 

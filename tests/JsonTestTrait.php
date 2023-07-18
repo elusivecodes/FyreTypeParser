@@ -3,18 +3,17 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use
-    Fyre\DB\TypeParser,
-    stdClass;
+use Fyre\DB\TypeParser;
+use stdClass;
 
-trait JsonTest
+trait JsonTestTrait
 {
 
     public function testJsonParse(): void
     {
         $this->assertSame(
             'test',
-            TypeParser::getType('json')->parse('test')
+            TypeParser::use('json')->parse('test')
         );
     }
 
@@ -22,7 +21,7 @@ trait JsonTest
     {
         $this->assertSame(
             33.3,
-            TypeParser::getType('json')->parse(33.3)
+            TypeParser::use('json')->parse(33.3)
         );
     }
 
@@ -30,7 +29,7 @@ trait JsonTest
     {
         $this->assertSame(
             [1, 2, 3],
-            TypeParser::getType('json')->parse([1, 2, 3])
+            TypeParser::use('json')->parse([1, 2, 3])
         );
     }
 
@@ -40,28 +39,28 @@ trait JsonTest
 
         $this->assertSame(
             $obj,
-            TypeParser::getType('json')->parse($obj)
+            TypeParser::use('json')->parse($obj)
         );
     }
 
     public function testJsonParseTrue(): void
     {
         $this->assertTrue(
-            TypeParser::getType('json')->parse(true)
+            TypeParser::use('json')->parse(true)
         );
     }
 
     public function testJsonParseFalse(): void
     {
         $this->assertFalse(
-            TypeParser::getType('json')->parse(false)
+            TypeParser::use('json')->parse(false)
         );
     }
 
     public function testJsonParseNull(): void
     {
         $this->assertNull(
-            TypeParser::getType('json')->parse(null)
+            TypeParser::use('json')->parse(null)
         );
     }
 
@@ -69,7 +68,7 @@ trait JsonTest
     {
         $this->assertSame(
             'test',
-            TypeParser::getType('json')->fromDatabase('"test"')
+            TypeParser::use('json')->fromDatabase('"test"')
         );
     }
 
@@ -77,7 +76,7 @@ trait JsonTest
     {
         $this->assertSame(
             33.3,
-            TypeParser::getType('json')->fromDatabase('33.3')
+            TypeParser::use('json')->fromDatabase('33.3')
         );
     }
 
@@ -85,7 +84,7 @@ trait JsonTest
     {
         $this->assertSame(
             [1, 2, 3],
-            TypeParser::getType('json')->fromDatabase('[1,2,3]')
+            TypeParser::use('json')->fromDatabase('[1,2,3]')
         );
     }
 
@@ -93,28 +92,28 @@ trait JsonTest
     {
         $this->assertSame(
             ['a' => 1],
-            TypeParser::getType('json')->fromDatabase('{"a":1}')
+            TypeParser::use('json')->fromDatabase('{"a":1}')
         );
     }
 
     public function testJsonFromDatabaseTrue(): void
     {
         $this->assertTrue(
-            TypeParser::getType('json')->fromDatabase('true')
+            TypeParser::use('json')->fromDatabase('true')
         );
     }
 
     public function testJsonFromDatabaseFalse(): void
     {
         $this->assertFalse(
-            TypeParser::getType('json')->fromDatabase('false')
+            TypeParser::use('json')->fromDatabase('false')
         );
     }
 
     public function testJsonFromDatabaseNull(): void
     {
         $this->assertNull(
-            TypeParser::getType('json')->fromDatabase(null)
+            TypeParser::use('json')->fromDatabase(null)
         );
     }
 
@@ -122,7 +121,7 @@ trait JsonTest
     {
         $this->assertSame(
             '"test"',
-            TypeParser::getType('json')->toDatabase('test')
+            TypeParser::use('json')->toDatabase('test')
         );
     }
 
@@ -130,7 +129,7 @@ trait JsonTest
     {
         $this->assertSame(
             '33.3',
-            TypeParser::getType('json')->toDatabase(33.3)
+            TypeParser::use('json')->toDatabase(33.3)
         );
     }
 
@@ -138,7 +137,7 @@ trait JsonTest
     {
         $this->assertSame(
             '[1,2,3]',
-            TypeParser::getType('json')->toDatabase([1, 2, 3])
+            TypeParser::use('json')->toDatabase([1, 2, 3])
         );
     }
 
@@ -149,7 +148,7 @@ trait JsonTest
 
         $this->assertSame(
             '{"a":1}',
-            TypeParser::getType('json')->toDatabase($obj)
+            TypeParser::use('json')->toDatabase($obj)
         );
     }
 
@@ -157,7 +156,7 @@ trait JsonTest
     {
         $this->assertSame(
             'true',
-            TypeParser::getType('json')->toDatabase(true)
+            TypeParser::use('json')->toDatabase(true)
         );
     }
 
@@ -165,7 +164,7 @@ trait JsonTest
     {
         $this->assertSame(
             'false',
-            TypeParser::getType('json')->toDatabase(false)
+            TypeParser::use('json')->toDatabase(false)
         );
     }
 
@@ -173,7 +172,7 @@ trait JsonTest
     {
         $this->assertSame(
             null,
-            TypeParser::getType('json')->toDatabase(null)
+            TypeParser::use('json')->toDatabase(null)
         );
     }
 

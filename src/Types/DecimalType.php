@@ -3,8 +3,7 @@ declare(strict_types=1);
 
 namespace Fyre\DB\Types;
 
-use function
-    is_numeric;
+use function is_numeric;
 
 /**
  * DecimalType

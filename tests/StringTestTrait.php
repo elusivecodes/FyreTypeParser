@@ -3,32 +3,31 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use
-    Fyre\DB\TypeParser,
-    stdClass;
+use Fyre\DB\TypeParser;
+use stdClass;
 
-trait StringTest
+trait StringTestTrait
 {
 
     public function testStringParse(): void
     {
         $this->assertSame(
             'test',
-            TypeParser::getType('string')->parse('test')
+            TypeParser::use('string')->parse('test')
         );
     }
 
     public function testStringParseNull(): void
     {
         $this->assertNull(
-            TypeParser::getType('string')->parse(null)
+            TypeParser::use('string')->parse(null)
         );
     }
 
     public function testStringParseInvalid(): void
     {
         $this->assertNull(
-            TypeParser::getType('string')->parse(new stdClass)
+            TypeParser::use('string')->parse(new stdClass)
         );
     }
 
@@ -36,14 +35,14 @@ trait StringTest
     {
         $this->assertSame(
             'test',
-            TypeParser::getType('string')->fromDatabase('test')
+            TypeParser::use('string')->fromDatabase('test')
         );
     }
 
     public function testStringFromDatabaseNull(): void
     {
         $this->assertNull(
-            TypeParser::getType('string')->fromDatabase(null)
+            TypeParser::use('string')->fromDatabase(null)
         );
     }
 
@@ -51,14 +50,14 @@ trait StringTest
     {
         $this->assertSame(
             'test',
-            TypeParser::getType('string')->toDatabase('test')
+            TypeParser::use('string')->toDatabase('test')
         );
     }
 
     public function testStringToDatabaseNull(): void
     {
         $this->assertNull(
-            TypeParser::getType('string')->toDatabase(null)
+            TypeParser::use('string')->toDatabase(null)
         );
     }
 
@@ -67,7 +66,7 @@ trait StringTest
         $obj = new stdClass;
 
         $this->assertNull(
-            TypeParser::getType('string')->toDatabase(new stdClass)
+            TypeParser::use('string')->toDatabase(new stdClass)
         );
     }
 

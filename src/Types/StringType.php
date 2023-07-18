@@ -3,11 +3,9 @@ declare(strict_types=1);
 
 namespace Fyre\DB\Types;
 
-use
-    Stringable;
+use Stringable;
 
-use function
-    is_scalar;
+use function is_scalar;
 
 /**
  * StringType
@@ -22,7 +20,7 @@ class StringType extends Type
      */
     public function parse(mixed $value): string|null
     {
-        if ($value === null || (!is_scalar($value) && !$value instanceof Stringable)) {
+        if ($value === null || (!is_scalar($value) && !($value instanceof Stringable))) {
             return null;
         }
 

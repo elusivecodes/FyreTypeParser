@@ -3,17 +3,16 @@ declare(strict_types=1);
 
 namespace Fyre\DB;
 
-use
-    Fyre\DB\Types\BooleanType,
-    Fyre\DB\Types\DateTimeType,
-    Fyre\DB\Types\DateType,
-    Fyre\DB\Types\DecimalType,
-    Fyre\DB\Types\FloatType,
-    Fyre\DB\Types\IntegerType,
-    Fyre\DB\Types\JsonType,
-    Fyre\DB\Types\StringType,
-    Fyre\DB\Types\TimeType,
-    Fyre\DB\Types\Type;
+use Fyre\DB\Types\BooleanType;
+use Fyre\DB\Types\DateTimeType;
+use Fyre\DB\Types\DateType;
+use Fyre\DB\Types\DecimalType;
+use Fyre\DB\Types\FloatType;
+use Fyre\DB\Types\IntegerType;
+use Fyre\DB\Types\JsonType;
+use Fyre\DB\Types\StringType;
+use Fyre\DB\Types\TimeType;
+use Fyre\DB\Types\Type;
 
 /**
  * TypeParser
@@ -45,13 +44,22 @@ abstract class TypeParser
     }
 
     /**
-     * Get a Type class for a value type.
+     * Get the type class.
      * @param string $type The value type.
-     * @return Type The Type.
+     * @return string The class name.
      */
-    public static function getType(string $type): Type
+    public static function getType(string $type): string
     {
-        return static::$handlers[$type] ??= static::load($type);
+        return static::$types[$type] ?? StringType::class;
+    }
+
+    /**
+     * Get the type class map.
+     * @return array The type class map.
+     */
+    public static function getTypeMap(): array
+    {
+        return static::$types;
     }
 
     /**
@@ -72,9 +80,19 @@ abstract class TypeParser
      */
     protected static function load(string $type): Type
     {
-        $typeClass = static::$types[$type] ?? StringType::class;
+        $typeClass = static::getType($type);
 
         return new $typeClass($type);
+    }
+
+    /**
+     * Get a Type class for a value type.
+     * @param string $type The value type.
+     * @return Type The Type.
+     */
+    public static function use(string $type): Type
+    {
+        return static::$handlers[$type] ??= static::load($type);
     }
 
 }

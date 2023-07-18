@@ -3,17 +3,14 @@ declare(strict_types=1);
 
 namespace Fyre\DB\Types;
 
-use
-    DateTimeInterface,
-    DateTimeZone,
-    Fyre\DateTime\DateTime,
-    Fyre\DateTime\DateTimeImmutable;
+use DateTimeInterface;
+use DateTimeZone;
+use Fyre\DateTime\DateTime;
 
-use function
-    array_unshift,
-    ctype_digit,
-    is_scalar,
-    is_string;
+use function array_unshift;
+use function ctype_digit;
+use function is_scalar;
+use function is_string;
 
 /**
  * DateTimeType
@@ -42,22 +39,22 @@ class DateTimeType extends Type
     /**
      * Parse a database value to PHP value.
      * @param mixed $value The database value.
-     * @return DateTimeImmutable|null The PHP value.
+     * @return DateTime|null The PHP value.
      */
-    public function fromDatabase(mixed $value): DateTimeImmutable|null
+    public function fromDatabase(mixed $value): DateTime|null
     {
         if ($value === null) {
             return null;
         }
 
         if (ctype_digit($value)) {
-            $date = DateTimeImmutable::fromTimestamp($value, $this->serverTimeZone);
+            $date = DateTime::fromTimestamp($value, $this->serverTimeZone);
         } else {
             $timeZoneName = $this->serverTimeZone ?? DateTime::now()->getTimeZone();
             $timeZone = new DateTimeZone($timeZoneName);
     
             $date = \DateTime::createFromFormat($this->serverFormat, $value, $timeZone);
-            $date = DateTimeImmutable::fromDateTime($date, $this->userTimeZone);
+            $date = DateTime::fromDateTime($date, $this->userTimeZone);
         }
 
         if ($this->userTimeZone && $date->getTimeZone() !== $this->userTimeZone) {
@@ -101,9 +98,9 @@ class DateTimeType extends Type
     /**
      * Parse a user value to PHP value.
      * @param mixed $value The user value.
-     * @return DateTimeImmutable|null The PHP value.
+     * @return DateTime|null The PHP value.
      */
-    public function parse(mixed $value): DateTimeImmutable|null
+    public function parse(mixed $value): DateTime|null
     {
         if ($value === null) {
             return null;
@@ -112,15 +109,13 @@ class DateTimeType extends Type
         $date = null;
 
         if (is_scalar($value) && ctype_digit($value)) {
-            $date =  DateTimeImmutable::fromTimestamp($value, $this->userTimeZone);
-        } else if ($value instanceof DateTimeImmutable) {
-            $date =  $value;
+            $date =  DateTime::fromTimestamp($value, $this->userTimeZone);
         } else if ($value instanceof DateTime) {
-            $date =  DateTimeImmutable::fromDateTime($value->toDateTime(), $this->userTimeZone);
+            $date =  $value;
         } else if ($value instanceof DateTimeInterface) {
-            $date =  DateTimeImmutable::fromDateTime($value, $this->userTimeZone);
+            $date =  DateTime::fromDateTime($value, $this->userTimeZone);
         } else if ($this->localeFormat) {
-            $tempDate = DateTimeImmutable::fromFormat($this->localeFormat, $value, $this->userTimeZone);
+            $tempDate = DateTime::fromFormat($this->localeFormat, $value, $this->userTimeZone);
 
             if ($tempDate->format($this->localeFormat) === $value) {
                 $date =  $tempDate;
@@ -136,7 +131,7 @@ class DateTimeType extends Type
                     continue;
                 }
 
-                $date = DateTimeImmutable::fromDateTime($tempDate, $this->userTimeZone);
+                $date = DateTime::fromDateTime($tempDate, $this->userTimeZone);
             }
         }
 

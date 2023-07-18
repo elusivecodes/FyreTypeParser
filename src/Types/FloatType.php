@@ -3,12 +3,10 @@ declare(strict_types=1);
 
 namespace Fyre\DB\Types;
 
-use const
-    FILTER_NULL_ON_FAILURE,
-    FILTER_VALIDATE_FLOAT;
+use const FILTER_NULL_ON_FAILURE;
+use const FILTER_VALIDATE_FLOAT;
 
-use function
-    filter_var;
+use function filter_var;
 
 /**
  * FloatType

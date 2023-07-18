@@ -3,20 +3,18 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use
-    Fyre\DateTime\DateTime,
-    Fyre\DateTime\DateTimeImmutable,
-    Fyre\DB\TypeParser;
+use Fyre\DateTime\DateTime;
+use Fyre\DB\TypeParser;
 
-trait DateTimeTest
+trait DateTimeTestTrait
 {
 
     public function testDateTimeParse(): void
     {
-        $date = TypeParser::getType('datetime')->parse('2022-01-01T08:59:11');
+        $date = TypeParser::use('datetime')->parse('2022-01-01T08:59:11');
 
         $this->assertInstanceOf(
-            DateTimeImmutable::class,
+            DateTime::class,
             $date
         );
 
@@ -30,33 +28,17 @@ trait DateTimeTest
     {
         $this->assertSame(
             '2021-12-31T22:59:11.000+00:00',
-            TypeParser::getType('datetime')->parse(1640991551)->toISOString()
-        );
-    }
-
-    public function testDateTimeParseDateTimeImmutable(): void
-    {
-        $date = DateTimeImmutable::fromTimestamp(1640991551);
-
-        $this->assertSame(
-            $date,
-            TypeParser::getType('datetime')->parse($date)
+            TypeParser::use('datetime')->parse(1640991551)->toISOString()
         );
     }
 
     public function testDateTimeParseDateTime(): void
     {
         $date = DateTime::fromTimestamp(1640991551);
-        $date2 = TypeParser::getType('datetime')->parse($date);
-
-        $this->assertInstanceOf(
-            DateTimeImmutable::class,
-            $date2
-        );
 
         $this->assertSame(
-            '2021-12-31T22:59:11.000+00:00',
-            $date2->toISOString()
+            $date,
+            TypeParser::use('datetime')->parse($date)
         );
     }
 
@@ -66,13 +48,13 @@ trait DateTimeTest
 
         $this->assertSame(
             '2021-12-31T22:59:11.000+00:00',
-            TypeParser::getType('datetime')->parse($date)->toISOString()
+            TypeParser::use('datetime')->parse($date)->toISOString()
         );
     }
 
     public function testDateTimeParseLocaleFormat(): void
     {
-        $dateParser = TypeParser::getType('datetime');
+        $dateParser = TypeParser::use('datetime');
 
         $this->assertSame(
             $dateParser,
@@ -87,7 +69,7 @@ trait DateTimeTest
 
     public function testDateTimeParseUserTimeZone(): void
     {
-        $dateParser = TypeParser::getType('datetime');
+        $dateParser = TypeParser::use('datetime');
 
         $dateParser->setUserTimeZone('Australia/Brisbane');
         $dateParser->setLocaleFormat('eee MMM dd yyyy HH:mm:ss');
@@ -101,14 +83,14 @@ trait DateTimeTest
     public function testDateTimeParseNull(): void
     {
         $this->assertNull(
-            TypeParser::getType('datetime')->parse(null)
+            TypeParser::use('datetime')->parse(null)
         );
     }
 
     public function testDateTimeParseInvalid(): void
     {
         $this->assertNull(
-            TypeParser::getType('datetime')->parse('invalid')
+            TypeParser::use('datetime')->parse('invalid')
         );
     }
 
@@ -116,7 +98,7 @@ trait DateTimeTest
     {
         $this->assertSame(
             '2021-12-31T22:59:11.000+00:00',
-            TypeParser::getType('datetime')->fromDatabase('2021-12-31 22:59:11')->toISOString()
+            TypeParser::use('datetime')->fromDatabase('2021-12-31 22:59:11')->toISOString()
         );
     }
 
@@ -124,13 +106,13 @@ trait DateTimeTest
     {
         $this->assertSame(
             '2021-12-31T22:59:11.000+00:00',
-            TypeParser::getType('datetime')->fromDatabase(1640991551)->toISOString()
+            TypeParser::use('datetime')->fromDatabase(1640991551)->toISOString()
         );
     }
 
     public function testDateTimeFromDatabaseServerTimeZone(): void
     {
-        $dateParser = TypeParser::getType('datetime');
+        $dateParser = TypeParser::use('datetime');
 
         $dateParser->setServerTimeZone('Australia/Brisbane');
 
@@ -142,7 +124,7 @@ trait DateTimeTest
 
     public function testDateTimeFromDatabaseUserTimeZone(): void
     {
-        $dateParser = TypeParser::getType('datetime');
+        $dateParser = TypeParser::use('datetime');
 
         $dateParser->setUserTimeZone('Australia/Brisbane');
 
@@ -155,17 +137,17 @@ trait DateTimeTest
     public function testDateTimeFromDatabaseNull(): void
     {
         $this->assertNull(
-            TypeParser::getType('datetime')->fromDatabase(null)
+            TypeParser::use('datetime')->fromDatabase(null)
         );
     }
 
     public function testDateTimeToDatabase(): void
     {
-        $date = DateTimeImmutable::fromTimestamp(1640991551);
+        $date = DateTime::fromTimestamp(1640991551);
 
         $this->assertSame(
             '2021-12-31 22:59:11',
-            TypeParser::getType('datetime')->toDatabase($date)
+            TypeParser::use('datetime')->toDatabase($date)
         );
     }
 
@@ -173,17 +155,17 @@ trait DateTimeTest
     {
         $this->assertSame(
             '2021-12-31 22:59:11',
-            TypeParser::getType('datetime')->toDatabase('2021-12-31 22:59:11')
+            TypeParser::use('datetime')->toDatabase('2021-12-31 22:59:11')
         );
     }
 
     public function testDateTimeToDatabaseServerTimeZone(): void
     {
-        $dateParser = TypeParser::getType('datetime');
+        $dateParser = TypeParser::use('datetime');
 
         $dateParser->setServerTimeZone('Australia/Brisbane');
 
-        $date = DateTimeImmutable::fromTimestamp(1640991551);
+        $date = DateTime::fromTimestamp(1640991551);
 
         $this->assertSame(
             '2022-01-01 08:59:11',
@@ -194,13 +176,13 @@ trait DateTimeTest
     public function testDateTimeToDatabaseNull(): void
     {
         $this->assertNull(
-            TypeParser::getType('datetime')->toDatabase(null)
+            TypeParser::use('datetime')->toDatabase(null)
         );
     }
 
     public function testDateTimeSetServerTimeZone(): void
     {
-        $dateParser = TypeParser::getType('datetime');
+        $dateParser = TypeParser::use('datetime');
 
         $this->assertSame(
             $dateParser,
@@ -215,7 +197,7 @@ trait DateTimeTest
 
     public function testDateTimeSetUserTimeZone(): void
     {
-        $dateParser = TypeParser::getType('datetime');
+        $dateParser = TypeParser::use('datetime');
 
         $this->assertSame(
             $dateParser,
@@ -230,7 +212,7 @@ trait DateTimeTest
 
     public function testDateTimeSetLocaleFormat(): void
     {
-        $dateParser = TypeParser::getType('datetime');
+        $dateParser = TypeParser::use('datetime');
 
         $this->assertSame(
             $dateParser,

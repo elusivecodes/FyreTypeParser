@@ -3,31 +3,30 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use
-    Fyre\DB\TypeParser;
+use Fyre\DB\TypeParser;
 
-trait FloatTest
+trait FloatTestTrait
 {
 
     public function testFloatParse(): void
     {
         $this->assertSame(
             33.3,
-            TypeParser::getType('float')->parse('33.3')
+            TypeParser::use('float')->parse('33.3')
         );
     }
 
     public function testFloatParseNull(): void
     {
         $this->assertNull(
-            TypeParser::getType('float')->parse(null)
+            TypeParser::use('float')->parse(null)
         );
     }
 
     public function testFloatParseInvalid(): void
     {
         $this->assertNull(
-            TypeParser::getType('float')->parse('invalid')
+            TypeParser::use('float')->parse('invalid')
         );
     }
 
@@ -35,14 +34,14 @@ trait FloatTest
     {
         $this->assertSame(
             33.3,
-            TypeParser::getType('float')->fromDatabase('33.3')
+            TypeParser::use('float')->fromDatabase('33.3')
         );
     }
 
     public function testFloatFromDatabaseNull(): void
     {
         $this->assertNull(
-            TypeParser::getType('float')->fromDatabase(null)
+            TypeParser::use('float')->fromDatabase(null)
         );
     }
 
@@ -50,21 +49,21 @@ trait FloatTest
     {
         $this->assertSame(
             33.3,
-            TypeParser::getType('float')->toDatabase('33.3')
+            TypeParser::use('float')->toDatabase('33.3')
         );
     }
 
     public function testFloatToDatabaseNull(): void
     {
         $this->assertNull(
-            TypeParser::getType('float')->toDatabase(null)
+            TypeParser::use('float')->toDatabase(null)
         );
     }
 
     public function testFloatToDatabaseInvalid(): void
     {
         $this->assertNull(
-            TypeParser::getType('float')->toDatabase('invalid')
+            TypeParser::use('float')->toDatabase('invalid')
         );
     }
 

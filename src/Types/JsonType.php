@@ -3,9 +3,8 @@ declare(strict_types=1);
 
 namespace Fyre\DB\Types;
 
-use function
-    json_decode,
-    json_encode;
+use function json_decode;
+use function json_encode;
 
 /**
  * JsonType
