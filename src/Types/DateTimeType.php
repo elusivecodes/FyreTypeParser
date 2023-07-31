@@ -7,10 +7,8 @@ use DateTimeInterface;
 use DateTimeZone;
 use Fyre\DateTime\DateTime;
 
-use function array_unshift;
 use function ctype_digit;
 use function is_scalar;
-use function is_string;
 
 /**
  * DateTimeType
