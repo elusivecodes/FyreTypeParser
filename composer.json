@@ -23,6 +23,6 @@
         "phpunit/phpunit": "^10"
     },
     "require": {
-        "fyre/datetime": "^2.0"
+        "fyre/datetime": "^3.0"
     }
 }

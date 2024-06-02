@@ -45,7 +45,7 @@ class DateTimeType extends Type
             return null;
         }
 
-        if (ctype_digit($value)) {
+        if (ctype_digit((string) $value)) {
             $date = DateTime::fromTimestamp($value, $this->serverTimeZone);
         } else {
             $timeZoneName = $this->serverTimeZone ?? DateTime::now()->getTimeZone();
@@ -60,7 +60,7 @@ class DateTimeType extends Type
         }
 
         if ($this->startOfDay) {
-            $date = $date->startOf('day');
+            $date = $date->startOfDay();
         }
 
         return $date;
@@ -106,7 +106,7 @@ class DateTimeType extends Type
 
         $date = null;
 
-        if (is_scalar($value) && ctype_digit($value)) {
+        if (is_scalar($value) && ctype_digit((string) $value)) {
             $date =  DateTime::fromTimestamp($value, $this->userTimeZone);
         } else if ($value instanceof DateTime) {
             $date =  $value;
@@ -138,7 +138,7 @@ class DateTimeType extends Type
         }
 
         if ($this->startOfDay) {
-            $date = $date->startOf('day');
+            $date = $date->startOfDay();
         }
 
         return $date;
