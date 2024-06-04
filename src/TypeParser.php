@@ -74,6 +74,16 @@ abstract class TypeParser
     }
 
     /**
+     * Get a Type class for a value type.
+     * @param string $type The value type.
+     * @return Type The Type.
+     */
+    public static function use(string $type): Type
+    {
+        return static::$handlers[$type] ??= static::load($type);
+    }
+
+    /**
      * Load a Type class for a value type.
      * @param string $type The value type.
      * @return Type The Type.
@@ -83,16 +93,6 @@ abstract class TypeParser
         $typeClass = static::getType($type);
 
         return new $typeClass($type);
-    }
-
-    /**
-     * Get a Type class for a value type.
-     * @param string $type The value type.
-     * @return Type The Type.
-     */
-    public static function use(string $type): Type
-    {
-        return static::$handlers[$type] ??= static::load($type);
     }
 
 }
