@@ -71,7 +71,7 @@ Load a shared [*Type*](#types) instance for a value type.
 - `$type` is a string representing the value type.
 
 ```php
-$parser = TypeParser::getType($type);
+$parser = TypeParser::use($type);
 ```
 
 
