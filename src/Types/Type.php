@@ -8,7 +8,6 @@ namespace Fyre\DB\Types;
  */
 abstract class Type
 {
-
     /**
      * Parse a database value to PHP value.
      * @param mixed $value The database value.
@@ -38,5 +37,4 @@ abstract class Type
     {
         return $this->parse($value);
     }
-
 }

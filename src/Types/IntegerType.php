@@ -3,17 +3,16 @@ declare(strict_types=1);
 
 namespace Fyre\DB\Types;
 
+use function filter_var;
+
 use const FILTER_NULL_ON_FAILURE;
 use const FILTER_VALIDATE_INT;
-
-use function filter_var;
 
 /**
  * IntegerType
  */
 class IntegerType extends Type
 {
-
     /**
      * Parse a user value to PHP value.
      * @param mixed $value The user value.
@@ -27,5 +26,4 @@ class IntegerType extends Type
 
         return filter_var($value, FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE);
     }
-
 }

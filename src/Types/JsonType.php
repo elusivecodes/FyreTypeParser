@@ -11,7 +11,6 @@ use function json_encode;
  */
 class JsonType extends Type
 {
-
     protected int $encodingFlags = 0;
 
     /**
@@ -53,5 +52,4 @@ class JsonType extends Type
 
         return json_encode($value, $this->encodingFlags);
     }
-
 }

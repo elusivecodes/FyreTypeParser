@@ -8,6 +8,52 @@ use Fyre\DB\TypeParser;
 
 trait DateTestTrait
 {
+    public function testDateFromDatabase(): void
+    {
+        $this->assertSame(
+            '2021-12-31T00:00:00.000+00:00',
+            TypeParser::use('date')->fromDatabase('2021-12-31')->toISOString()
+        );
+    }
+
+    public function testDateFromDatabaseNull(): void
+    {
+        $this->assertNull(
+            TypeParser::use('date')->fromDatabase(null)
+        );
+    }
+
+    public function testDateFromDatabaseServerTimeZone(): void
+    {
+        $dateParser = TypeParser::use('date');
+
+        $dateParser->setServerTimeZone('Australia/Brisbane');
+
+        $this->assertSame(
+            '2021-12-30T14:00:00.000+00:00',
+            $dateParser->fromDatabase('2021-12-31')->toISOString()
+        );
+    }
+
+    public function testDateFromDatabaseTimestamp(): void
+    {
+        $this->assertSame(
+            '2021-12-31T00:00:00.000+00:00',
+            TypeParser::use('date')->fromDatabase(1640991551)->toISOString()
+        );
+    }
+
+    public function testDateFromDatabaseUserTimeZone(): void
+    {
+        $dateParser = TypeParser::use('date');
+
+        $dateParser->setUserTimeZone('Australia/Brisbane');
+
+        $this->assertSame(
+            'Australia/Brisbane',
+            $dateParser->fromDatabase('2021-12-31')->getTimeZone()
+        );
+    }
 
     public function testDateParse(): void
     {
@@ -24,14 +70,6 @@ trait DateTestTrait
         );
     }
 
-    public function testDateParseTimestamp(): void
-    {
-        $this->assertSame(
-            '2021-12-31T00:00:00.000+00:00',
-            TypeParser::use('date')->parse(1640991551)->toISOString()
-        );
-    }
-
     public function testDateParseDateTime(): void
     {
         $date = DateTime::fromTimestamp(1640991551);
@@ -42,13 +80,10 @@ trait DateTestTrait
         );
     }
 
-    public function testDateParseNative(): void
+    public function testDateParseInvalid(): void
     {
-        $date = new \DateTime('@1640991551');
-
-        $this->assertSame(
-            '2021-12-31T00:00:00.000+00:00',
-            TypeParser::use('date')->parse($date)->toISOString()
+        $this->assertNull(
+            TypeParser::use('date')->parse('invalid')
         );
     }
 
@@ -67,6 +102,31 @@ trait DateTestTrait
         );
     }
 
+    public function testDateParseNative(): void
+    {
+        $date = new \DateTime('@1640991551');
+
+        $this->assertSame(
+            '2021-12-31T00:00:00.000+00:00',
+            TypeParser::use('date')->parse($date)->toISOString()
+        );
+    }
+
+    public function testDateParseNull(): void
+    {
+        $this->assertNull(
+            TypeParser::use('date')->parse(null)
+        );
+    }
+
+    public function testDateParseTimestamp(): void
+    {
+        $this->assertSame(
+            '2021-12-31T00:00:00.000+00:00',
+            TypeParser::use('date')->parse(1640991551)->toISOString()
+        );
+    }
+
     public function testDateParseUserTimeZone(): void
     {
         $dateParser = TypeParser::use('date');
@@ -80,103 +140,18 @@ trait DateTestTrait
         );
     }
 
-    public function testDateParseNull(): void
-    {
-        $this->assertNull(
-            TypeParser::use('date')->parse(null)
-        );
-    }
-
-    public function testDateParseInvalid(): void
-    {
-        $this->assertNull(
-            TypeParser::use('date')->parse('invalid')
-        );
-    }
-
-    public function testDateFromDatabase(): void
-    {
-        $this->assertSame(
-            '2021-12-31T00:00:00.000+00:00',
-            TypeParser::use('date')->fromDatabase('2021-12-31')->toISOString()
-        );
-    }
-
-    public function testDateFromDatabaseTimestamp(): void
-    {
-        $this->assertSame(
-            '2021-12-31T00:00:00.000+00:00',
-            TypeParser::use('date')->fromDatabase(1640991551)->toISOString()
-        );
-    }
-
-    public function testDateFromDatabaseServerTimeZone(): void
+    public function testDateSetLocaleFormat(): void
     {
         $dateParser = TypeParser::use('date');
 
-        $dateParser->setServerTimeZone('Australia/Brisbane');
+        $this->assertSame(
+            $dateParser,
+            $dateParser->setLocaleFormat('eee MMM dd yyyy')
+        );
 
         $this->assertSame(
-            '2021-12-30T14:00:00.000+00:00',
-            $dateParser->fromDatabase('2021-12-31')->toISOString()
-        );
-    }
-
-    public function testDateFromDatabaseUserTimeZone(): void
-    {
-        $dateParser = TypeParser::use('date');
-
-        $dateParser->setUserTimeZone('Australia/Brisbane');
-
-        $this->assertSame(
-            'Australia/Brisbane',
-            $dateParser->fromDatabase('2021-12-31')->getTimeZone()
-        );
-    }
-
-    public function testDateFromDatabaseNull(): void
-    {
-        $this->assertNull(
-            TypeParser::use('date')->fromDatabase(null)
-        );
-    }
-
-    public function testDateToDatabase(): void
-    {
-        $date = DateTime::fromTimestamp(1640991551);
-
-        $this->assertSame(
-            '2021-12-31',
-            TypeParser::use('date')->toDatabase($date)
-        );
-    }
-
-    public function testDateToDatabaseString(): void
-    {
-        $this->assertSame(
-            '2021-12-31',
-            TypeParser::use('date')->toDatabase('2021-12-31')
-        );
-    }
-
-    public function testDateToDatabaseServerTimeZone(): void
-    {
-        $dateParser = TypeParser::use('date');
-
-        $dateParser->setServerTimeZone('Australia/Brisbane');
-
-        $date = DateTime::fromTimestamp(1640991551);
-
-        $this->assertSame(
-            '2021-12-31',
-            $dateParser->toDatabase($date)
-        );
-    }
-
-    public function testDateToDatabaseNull(): void
-    {
-        $this->assertNull(
-            TypeParser::use('date')->toDatabase(null)
+            'eee MMM dd yyyy',
+            $dateParser->getLocaleFormat()
         );
     }
 
@@ -210,19 +185,42 @@ trait DateTestTrait
         );
     }
 
-    public function testDateSetLocaleFormat(): void
+    public function testDateToDatabase(): void
     {
-        $dateParser = TypeParser::use('date');
+        $date = DateTime::fromTimestamp(1640991551);
 
         $this->assertSame(
-            $dateParser,
-            $dateParser->setLocaleFormat('eee MMM dd yyyy')
-        );
-
-        $this->assertSame(
-            'eee MMM dd yyyy',
-            $dateParser->getLocaleFormat()
+            '2021-12-31',
+            TypeParser::use('date')->toDatabase($date)
         );
     }
 
+    public function testDateToDatabaseNull(): void
+    {
+        $this->assertNull(
+            TypeParser::use('date')->toDatabase(null)
+        );
+    }
+
+    public function testDateToDatabaseServerTimeZone(): void
+    {
+        $dateParser = TypeParser::use('date');
+
+        $dateParser->setServerTimeZone('Australia/Brisbane');
+
+        $date = DateTime::fromTimestamp(1640991551);
+
+        $this->assertSame(
+            '2021-12-31',
+            $dateParser->toDatabase($date)
+        );
+    }
+
+    public function testDateToDatabaseString(): void
+    {
+        $this->assertSame(
+            '2021-12-31',
+            TypeParser::use('date')->toDatabase('2021-12-31')
+        );
+    }
 }

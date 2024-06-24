@@ -19,6 +19,7 @@ use Fyre\DB\Types\Type;
  */
 abstract class TypeParser
 {
+    protected static array $handlers = [];
 
     protected static array $types = [
         'boolean' => BooleanType::class,
@@ -32,8 +33,6 @@ abstract class TypeParser
         'string' => StringType::class,
         'time' => TimeType::class
     ];
-
-    protected static array $handlers = [];
 
     /**
      * Clear all loaded types.
@@ -94,5 +93,4 @@ abstract class TypeParser
 
         return new $typeClass($type);
     }
-
 }

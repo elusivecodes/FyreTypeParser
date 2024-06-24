@@ -3,17 +3,16 @@ declare(strict_types=1);
 
 namespace Fyre\DB\Types;
 
+use function filter_var;
+
 use const FILTER_NULL_ON_FAILURE;
 use const FILTER_VALIDATE_BOOLEAN;
-
-use function filter_var;
 
 /**
  * BooleanType
  */
 class BooleanType extends Type
 {
-
     /**
      * Parse a user value to PHP value.
      * @param mixed $value The user value.
@@ -27,5 +26,4 @@ class BooleanType extends Type
 
         return filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
     }
-
 }

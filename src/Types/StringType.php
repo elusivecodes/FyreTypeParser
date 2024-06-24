@@ -12,7 +12,6 @@ use function is_scalar;
  */
 class StringType extends Type
 {
-
     /**
      * Parse a user value to PHP value.
      * @param mixed $value The user value.
@@ -26,5 +25,4 @@ class StringType extends Type
 
         return (string) $value;
     }
-
 }

@@ -8,14 +8,13 @@ namespace Fyre\DB\Types;
  */
 class TimeType extends DateTimeType
 {
-
-    protected string|null $serverTimeZone = 'UTC';
-
-    protected string $serverFormat = 'H:i:s';
-
     protected array $formats = [
         'H:i',
         'H:i:s'
     ];
+
+    protected string $serverFormat = 'H:i:s';
+
+    protected string|null $serverTimeZone = 'UTC';
 
 }

@@ -10,7 +10,6 @@ use function is_numeric;
  */
 class DecimalType extends Type
 {
-
     /**
      * Parse a user value to PHP value.
      * @param mixed $value The user value.
@@ -24,5 +23,4 @@ class DecimalType extends Type
 
         return (string) $value;
     }
-
 }

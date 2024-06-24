@@ -23,6 +23,13 @@
         "phpunit/phpunit": "^10"
     },
     "require": {
+        "friendsofphp/php-cs-fixer": "^3.59",
+        "fyre/php-cs-fixer-config": "^1.0",
         "fyre/datetime": "^3.0"
+    },
+    "scripts": {
+        "cs": "php-cs-fixer fix --ansi --verbose --dry-run --diff",
+        "cs-fix": "php-cs-fixer fix --ansi --verbose --diff",
+        "test": "phpunit tests"
     }
 }

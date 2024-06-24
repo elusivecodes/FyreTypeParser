@@ -15,11 +15,6 @@ use function is_scalar;
  */
 class DateTimeType extends Type
 {
-
-    protected string|null $serverTimeZone = null;
-
-    protected string $serverFormat = 'Y-m-d H:i:s';
-
     protected array $formats = [
         'Y-m-d H:i',
         'Y-m-d H:i:s',
@@ -28,11 +23,15 @@ class DateTimeType extends Type
         'Y-m-d\TH:i:sP'
     ];
 
-    protected string|null $userTimeZone = null;
-
     protected string|null $localeFormat = null;
 
+    protected string $serverFormat = 'Y-m-d H:i:s';
+
+    protected string|null $serverTimeZone = null;
+
     protected bool $startOfDay = false;
+
+    protected string|null $userTimeZone = null;
 
     /**
      * Parse a database value to PHP value.
@@ -50,7 +49,7 @@ class DateTimeType extends Type
         } else {
             $timeZoneName = $this->serverTimeZone ?? DateTime::now()->getTimeZone();
             $timeZone = new DateTimeZone($timeZoneName);
-    
+
             $date = \DateTime::createFromFormat($this->serverFormat, $value, $timeZone);
             $date = DateTime::fromDateTime($date, $this->userTimeZone);
         }
@@ -76,21 +75,21 @@ class DateTimeType extends Type
     }
 
     /**
-     * Get the user time zone.
-     * @return string|null The user time zone.
-     */
-    public function getUserTimeZone(): string|null
-    {
-        return $this->userTimeZone;
-    }
-
-    /**
      * Get the server time zone.
      * @return string|null The server time zone.
      */
     public function getServerTimeZone(): string|null
     {
         return $this->serverTimeZone;
+    }
+
+    /**
+     * Get the user time zone.
+     * @return string|null The user time zone.
+     */
+    public function getUserTimeZone(): string|null
+    {
+        return $this->userTimeZone;
     }
 
     /**
@@ -107,22 +106,22 @@ class DateTimeType extends Type
         $date = null;
 
         if (is_scalar($value) && ctype_digit((string) $value)) {
-            $date =  DateTime::fromTimestamp($value, $this->userTimeZone);
+            $date = DateTime::fromTimestamp($value, $this->userTimeZone);
         } else if ($value instanceof DateTime) {
-            $date =  $value;
+            $date = $value;
         } else if ($value instanceof DateTimeInterface) {
-            $date =  DateTime::fromDateTime($value, $this->userTimeZone);
+            $date = DateTime::fromDateTime($value, $this->userTimeZone);
         } else if ($this->localeFormat) {
             $tempDate = DateTime::fromFormat($this->localeFormat, $value, $this->userTimeZone);
 
             if ($tempDate->format($this->localeFormat) === $value) {
-                $date =  $tempDate;
+                $date = $tempDate;
             }
         } else {
             $timeZoneName = $this->userTimeZone ?? DateTime::now()->getTimeZone();
             $timeZone = new DateTimeZone($timeZoneName);
 
-            foreach ($this->formats AS $format) {
+            foreach ($this->formats as $format) {
                 $tempDate = \DateTime::createFromFormat($format, $value, $timeZone);
 
                 if (!$tempDate) {
@@ -201,5 +200,4 @@ class DateTimeType extends Type
             ->toDateTime()
             ->format($this->serverFormat);
     }
-
 }

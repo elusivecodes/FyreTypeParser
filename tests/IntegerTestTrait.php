@@ -7,29 +7,6 @@ use Fyre\DB\TypeParser;
 
 trait IntegerTestTrait
 {
-
-    public function testIntegerParse(): void
-    {
-        $this->assertSame(
-            33,
-            TypeParser::use('integer')->parse('33')
-        );
-    }
-
-    public function testIntegerParseNull(): void
-    {
-        $this->assertNull(
-            TypeParser::use('integer')->parse(null)
-        );
-    }
-
-    public function testIntegerParseInvalid(): void
-    {
-        $this->assertNull(
-            TypeParser::use('integer')->parse('invalid')
-        );
-    }
-
     public function testIntegerFromDatabase(): void
     {
         $this->assertSame(
@@ -45,18 +22,33 @@ trait IntegerTestTrait
         );
     }
 
+    public function testIntegerParse(): void
+    {
+        $this->assertSame(
+            33,
+            TypeParser::use('integer')->parse('33')
+        );
+    }
+
+    public function testIntegerParseInvalid(): void
+    {
+        $this->assertNull(
+            TypeParser::use('integer')->parse('invalid')
+        );
+    }
+
+    public function testIntegerParseNull(): void
+    {
+        $this->assertNull(
+            TypeParser::use('integer')->parse(null)
+        );
+    }
+
     public function testIntegerToDatabase(): void
     {
         $this->assertSame(
             33,
             TypeParser::use('integer')->toDatabase('33')
-        );
-    }
-
-    public function testIntegerToDatabaseNull(): void
-    {
-        $this->assertNull(
-            TypeParser::use('integer')->toDatabase(null)
         );
     }
 
@@ -67,4 +59,10 @@ trait IntegerTestTrait
         );
     }
 
+    public function testIntegerToDatabaseNull(): void
+    {
+        $this->assertNull(
+            TypeParser::use('integer')->toDatabase(null)
+        );
+    }
 }

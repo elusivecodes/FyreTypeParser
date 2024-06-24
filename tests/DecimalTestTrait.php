@@ -7,29 +7,6 @@ use Fyre\DB\TypeParser;
 
 trait DecimalTestTrait
 {
-
-    public function testDecimalParse(): void
-    {
-        $this->assertSame(
-            '33.3',
-            TypeParser::use('decimal')->parse('33.3')
-        );
-    }
-
-    public function testDecimalParseNull(): void
-    {
-        $this->assertNull(
-            TypeParser::use('decimal')->parse(null)
-        );
-    }
-
-    public function testDecimalParseInvalid(): void
-    {
-        $this->assertNull(
-            TypeParser::use('decimal')->parse('invalid')
-        );
-    }
-
     public function testDecimalFromDatabase(): void
     {
         $this->assertSame(
@@ -45,18 +22,33 @@ trait DecimalTestTrait
         );
     }
 
+    public function testDecimalParse(): void
+    {
+        $this->assertSame(
+            '33.3',
+            TypeParser::use('decimal')->parse('33.3')
+        );
+    }
+
+    public function testDecimalParseInvalid(): void
+    {
+        $this->assertNull(
+            TypeParser::use('decimal')->parse('invalid')
+        );
+    }
+
+    public function testDecimalParseNull(): void
+    {
+        $this->assertNull(
+            TypeParser::use('decimal')->parse(null)
+        );
+    }
+
     public function testDecimalToDatabase(): void
     {
         $this->assertSame(
             '33.3',
             TypeParser::use('decimal')->toDatabase('33.3')
-        );
-    }
-
-    public function testDecimalToDatabaseNull(): void
-    {
-        $this->assertNull(
-            TypeParser::use('decimal')->toDatabase(null)
         );
     }
 
@@ -67,4 +59,10 @@ trait DecimalTestTrait
         );
     }
 
+    public function testDecimalToDatabaseNull(): void
+    {
+        $this->assertNull(
+            TypeParser::use('decimal')->toDatabase(null)
+        );
+    }
 }

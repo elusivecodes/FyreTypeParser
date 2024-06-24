@@ -18,7 +18,6 @@ use PHPUnit\Framework\TestCase;
 
 final class TypeTest extends TestCase
 {
-
     use BooleanTestTrait;
     use DateTestTrait;
     use DateTimeTestTrait;
@@ -28,6 +27,16 @@ final class TypeTest extends TestCase
     use JsonTestTrait;
     use StringTestTrait;
     use TimeTestTrait;
+
+    public static function setUpBeforeClass(): void
+    {
+        DateTime::setDefaultTimeZone('UTC');
+    }
+
+    protected function setUp(): void
+    {
+        TypeParser::clear();
+    }
 
     public function testGetType(): void
     {
@@ -71,15 +80,4 @@ final class TypeTest extends TestCase
             TypeParser::use('boolean')
         );
     }
-    
-    protected function setUp(): void
-    {
-        TypeParser::clear();
-    }
-
-    public static function setUpBeforeClass(): void
-    {
-        DateTime::setDefaultTimeZone('UTC');
-    }
-
 }
