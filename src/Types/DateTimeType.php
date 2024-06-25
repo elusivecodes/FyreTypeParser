@@ -20,7 +20,7 @@ class DateTimeType extends Type
         'Y-m-d H:i:s',
         'Y-m-d\TH:i',
         'Y-m-d\TH:i:s',
-        'Y-m-d\TH:i:sP'
+        'Y-m-d\TH:i:sP',
     ];
 
     protected string|null $localeFormat = null;
@@ -35,6 +35,7 @@ class DateTimeType extends Type
 
     /**
      * Parse a database value to PHP value.
+     *
      * @param mixed $value The database value.
      * @return DateTime|null The PHP value.
      */
@@ -67,6 +68,7 @@ class DateTimeType extends Type
 
     /**
      * Get the locale format.
+     *
      * @return string|null The locale format.
      */
     public function getLocaleFormat(): string|null
@@ -76,6 +78,7 @@ class DateTimeType extends Type
 
     /**
      * Get the server time zone.
+     *
      * @return string|null The server time zone.
      */
     public function getServerTimeZone(): string|null
@@ -85,6 +88,7 @@ class DateTimeType extends Type
 
     /**
      * Get the user time zone.
+     *
      * @return string|null The user time zone.
      */
     public function getUserTimeZone(): string|null
@@ -94,6 +98,7 @@ class DateTimeType extends Type
 
     /**
      * Parse a user value to PHP value.
+     *
      * @param mixed $value The user value.
      * @return DateTime|null The PHP value.
      */
@@ -145,6 +150,7 @@ class DateTimeType extends Type
 
     /**
      * Set the locale format.
+     *
      * @param string|null $format The locale format.
      * @return DateTimeType The DateTimeType.
      */
@@ -157,6 +163,7 @@ class DateTimeType extends Type
 
     /**
      * Set the server time zone.
+     *
      * @param string|null $timeZone The server time zone.
      * @return DateTimeType The DateTimeType.
      */
@@ -169,6 +176,7 @@ class DateTimeType extends Type
 
     /**
      * Set the user time zone.
+     *
      * @param string|null $timeZone The user time zone.
      * @return DateTimeType The DateTimeType.
      */
@@ -181,6 +189,7 @@ class DateTimeType extends Type
 
     /**
      * Parse a PHP value to database value.
+     *
      * @param mixed $value The PHP value.
      * @return string|null The database value.
      */

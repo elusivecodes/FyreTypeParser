@@ -10,6 +10,7 @@ abstract class Type
 {
     /**
      * Parse a database value to PHP value.
+     *
      * @param mixed $value The database value.
      * @return mixed The PHP value.
      */
@@ -20,6 +21,7 @@ abstract class Type
 
     /**
      * Parse a user value to PHP value.
+     *
      * @param mixed $value The user value.
      * @return mixed The PHP value.
      */
@@ -30,6 +32,7 @@ abstract class Type
 
     /**
      * Parse a PHP value to database value.
+     *
      * @param mixed $value The PHP value.
      * @return mixed The database value.
      */

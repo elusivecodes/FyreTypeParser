@@ -10,11 +10,10 @@ class TimeType extends DateTimeType
 {
     protected array $formats = [
         'H:i',
-        'H:i:s'
+        'H:i:s',
     ];
 
     protected string $serverFormat = 'H:i:s';
 
     protected string|null $serverTimeZone = 'UTC';
-
 }

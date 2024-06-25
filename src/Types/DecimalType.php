@@ -12,6 +12,7 @@ class DecimalType extends Type
 {
     /**
      * Parse a user value to PHP value.
+     *
      * @param mixed $value The user value.
      * @return string|null The PHP value.
      */

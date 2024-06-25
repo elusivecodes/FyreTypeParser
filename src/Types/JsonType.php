@@ -15,6 +15,7 @@ class JsonType extends Type
 
     /**
      * Parse a database value to PHP value.
+     *
      * @param mixed $value The database value.
      * @return mixed The PHP value.
      */
@@ -29,6 +30,7 @@ class JsonType extends Type
 
     /**
      * Set the encoding flags.
+     *
      * @param int $flags The encoding flags.
      * @return JsonType The JsonType.
      */
@@ -41,6 +43,7 @@ class JsonType extends Type
 
     /**
      * Parse a PHP value to database value.
+     *
      * @param mixed $value The PHP value.
      * @return string|null The database value.
      */

@@ -15,6 +15,7 @@ class IntegerType extends Type
 {
     /**
      * Parse a user value to PHP value.
+     *
      * @param mixed $value The user value.
      * @return int|null The PHP value.
      */

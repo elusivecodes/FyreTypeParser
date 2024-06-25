@@ -28,16 +28,6 @@ final class TypeTest extends TestCase
     use StringTestTrait;
     use TimeTestTrait;
 
-    public static function setUpBeforeClass(): void
-    {
-        DateTime::setDefaultTimeZone('UTC');
-    }
-
-    protected function setUp(): void
-    {
-        TypeParser::clear();
-    }
-
     public function testGetType(): void
     {
         $this->assertSame(
@@ -67,7 +57,7 @@ final class TypeTest extends TestCase
                 'integer' => IntegerType::class,
                 'json' => JsonType::class,
                 'string' => StringType::class,
-                'time' => TimeType::class
+                'time' => TimeType::class,
             ],
             TypeParser::getTypeMap()
         );
@@ -79,5 +69,15 @@ final class TypeTest extends TestCase
             TypeParser::use('boolean'),
             TypeParser::use('boolean')
         );
+    }
+
+    public static function setUpBeforeClass(): void
+    {
+        DateTime::setDefaultTimeZone('UTC');
+    }
+
+    protected function setUp(): void
+    {
+        TypeParser::clear();
     }
 }

@@ -31,7 +31,7 @@ abstract class TypeParser
         'integer' => IntegerType::class,
         'json' => JsonType::class,
         'string' => StringType::class,
-        'time' => TimeType::class
+        'time' => TimeType::class,
     ];
 
     /**
@@ -44,6 +44,7 @@ abstract class TypeParser
 
     /**
      * Get the type class.
+     *
      * @param string $type The value type.
      * @return string The class name.
      */
@@ -54,6 +55,7 @@ abstract class TypeParser
 
     /**
      * Get the type class map.
+     *
      * @return array The type class map.
      */
     public static function getTypeMap(): array
@@ -63,6 +65,7 @@ abstract class TypeParser
 
     /**
      * Map a value type to a class.
+     *
      * @param string $type The value type.
      * @param string $typeClass The class name.
      */
@@ -74,6 +77,7 @@ abstract class TypeParser
 
     /**
      * Get a Type class for a value type.
+     *
      * @param string $type The value type.
      * @return Type The Type.
      */
@@ -84,6 +88,7 @@ abstract class TypeParser
 
     /**
      * Load a Type class for a value type.
+     *
      * @param string $type The value type.
      * @return Type The Type.
      */
