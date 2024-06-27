@@ -6,6 +6,8 @@ namespace Tests;
 use Fyre\DateTime\DateTime;
 use Fyre\DB\TypeParser;
 use Fyre\DB\Types\BooleanType;
+use Fyre\DB\Types\DateTimeFractionalType;
+use Fyre\DB\Types\DateTimeTimeZoneType;
 use Fyre\DB\Types\DateTimeType;
 use Fyre\DB\Types\DateType;
 use Fyre\DB\Types\DecimalType;
@@ -20,7 +22,9 @@ final class TypeTest extends TestCase
 {
     use BooleanTestTrait;
     use DateTestTrait;
+    use DateTimeFractionalTestTrait;
     use DateTimeTestTrait;
+    use DateTimeTimeZoneTestTrait;
     use DecimalTestTrait;
     use FloatTestTrait;
     use IntegerTestTrait;
@@ -51,6 +55,8 @@ final class TypeTest extends TestCase
                 'boolean' => BooleanType::class,
                 'date' => DateType::class,
                 'datetime' => DateTimeType::class,
+                'datetime-fractional' => DateTimeFractionalType::class,
+                'datetime-timezone' => DateTimeTimeZoneType::class,
                 'decimal' => DecimalType::class,
                 'double' => DecimalType::class,
                 'float' => FloatType::class,

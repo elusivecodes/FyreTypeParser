@@ -16,6 +16,14 @@ trait TimeTestTrait
         );
     }
 
+    public function testTimeFromDatabaseFractional(): void
+    {
+        $this->assertSame(
+            '22:59:11',
+            TypeParser::use('time')->fromDatabase('22:59:11.12345')->format('HH:mm:ss')
+        );
+    }
+
     public function testTimeFromDatabaseNull(): void
     {
         $this->assertNull(

@@ -11,6 +11,9 @@ class TimeType extends DateTimeType
     protected array $formats = [
         'H:i',
         'H:i:s',
+        'H:i:sP',
+        'H:i:s.u',
+        'H:i:s.uP',
     ];
 
     protected string $serverFormat = 'H:i:s';

@@ -501,16 +501,16 @@
         },
         {
             "name": "fyre/datetime",
-            "version": "v3.0.4",
+            "version": "v3.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/elusivecodes/FyreDateTime.git",
-                "reference": "e63b44266754c42e8419b00a23d643bc293a2adf"
+                "reference": "24b4e85b4744cef4f8f90f1855db73a2793d406b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elusivecodes/FyreDateTime/zipball/e63b44266754c42e8419b00a23d643bc293a2adf",
-                "reference": "e63b44266754c42e8419b00a23d643bc293a2adf",
+                "url": "https://api.github.com/repos/elusivecodes/FyreDateTime/zipball/24b4e85b4744cef4f8f90f1855db73a2793d406b",
+                "reference": "24b4e85b4744cef4f8f90f1855db73a2793d406b",
                 "shasum": ""
             },
             "require-dev": {
@@ -537,9 +537,9 @@
             "description": "A DateTime library.",
             "support": {
                 "issues": "https://github.com/elusivecodes/FyreDateTime/issues",
-                "source": "https://github.com/elusivecodes/FyreDateTime/tree/v3.0.4"
+                "source": "https://github.com/elusivecodes/FyreDateTime/tree/v3.0.5"
             },
-            "time": "2024-06-25T04:10:18+00:00"
+            "time": "2024-06-27T01:04:09+00:00"
         },
         {
             "name": "fyre/php-cs-fixer-config",

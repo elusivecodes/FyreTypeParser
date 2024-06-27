@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace Fyre\DB;
 
 use Fyre\DB\Types\BooleanType;
+use Fyre\DB\Types\DateTimeFractionalType;
+use Fyre\DB\Types\DateTimeTimeZoneType;
 use Fyre\DB\Types\DateTimeType;
 use Fyre\DB\Types\DateType;
 use Fyre\DB\Types\DecimalType;
@@ -25,6 +27,8 @@ abstract class TypeParser
         'boolean' => BooleanType::class,
         'date' => DateType::class,
         'datetime' => DateTimeType::class,
+        'datetime-fractional' => DateTimeFractionalType::class,
+        'datetime-timezone' => DateTimeTimeZoneType::class,
         'decimal' => DecimalType::class,
         'double' => DecimalType::class,
         'float' => FloatType::class,

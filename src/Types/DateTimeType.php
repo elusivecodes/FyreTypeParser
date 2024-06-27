@@ -18,9 +18,14 @@ class DateTimeType extends Type
     protected array $formats = [
         'Y-m-d H:i',
         'Y-m-d H:i:s',
+        'Y-m-d H:i:sP',
+        'Y-m-d H:i:s.u',
+        'Y-m-d H:i:s.uP',
         'Y-m-d\TH:i',
         'Y-m-d\TH:i:s',
         'Y-m-d\TH:i:sP',
+        'Y-m-d\TH:i:s.u',
+        'Y-m-d\TH:i:s.uP',
     ];
 
     protected string|null $localeFormat = null;
@@ -51,7 +56,7 @@ class DateTimeType extends Type
             $timeZoneName = $this->serverTimeZone ?? DateTime::now()->getTimeZone();
             $timeZone = new DateTimeZone($timeZoneName);
 
-            $date = \DateTime::createFromFormat($this->serverFormat, $value, $timeZone);
+            $date = new \DateTime($value, $timeZone);
             $date = DateTime::fromDateTime($date, $this->userTimeZone);
         }
 
@@ -117,11 +122,7 @@ class DateTimeType extends Type
         } else if ($value instanceof DateTimeInterface) {
             $date = DateTime::fromDateTime($value, $this->userTimeZone);
         } else if ($this->localeFormat) {
-            $tempDate = DateTime::fromFormat($this->localeFormat, $value, $this->userTimeZone);
-
-            if ($tempDate->format($this->localeFormat) === $value) {
-                $date = $tempDate;
-            }
+            $date = DateTime::fromFormat($this->localeFormat, $value, $this->userTimeZone);
         } else {
             $timeZoneName = $this->userTimeZone ?? DateTime::now()->getTimeZone();
             $timeZone = new DateTimeZone($timeZoneName);

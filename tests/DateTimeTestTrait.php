@@ -16,6 +16,14 @@ trait DateTimeTestTrait
         );
     }
 
+    public function testDateTimeFromDatabaseFractional(): void
+    {
+        $this->assertSame(
+            '2021-12-31T22:59:11.123+00:00',
+            TypeParser::use('datetime')->fromDatabase('2021-12-31 22:59:11.12345')->toISOString()
+        );
+    }
+
     public function testDateTimeFromDatabaseNull(): void
     {
         $this->assertNull(
