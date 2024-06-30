@@ -77,7 +77,7 @@ $parser = TypeParser::use($type);
 
 ## Types
 
-You can load a specific type parser by specifying the `$type` argument of the `getType` method above.
+You can load a specific type parser by specifying the `$type` argument of the `use` method above.
 
 Custom type parsers can be created by extending `\Fyre\DB\Types\Type`, ensuring all below methods are implemented.
 
@@ -145,6 +145,126 @@ $parser->setLocaleFormat($format);
 
 ```php
 $parser = TypeParser::getType('datetime');
+```
+
+**Get Locale Format**
+
+Get the locale format.
+
+```php
+$format = $parser->getLocaleFormat();
+```
+
+**Get Server Time Zone**
+
+Get the server time zone.
+
+```php
+$timeZone = $parser->getServerTimeZone();
+```
+
+**Get User Time Zone**
+
+Get the user time zone.
+
+```php
+$timeZone = $parser->getUserTimeZone();
+```
+
+**Set Locale Format**
+
+Set the locale format.
+
+- `$format` is a string representing the locale format.
+
+```php
+$parser->setLocaleFormat($format);
+```
+
+**Set Server Time Zone**
+
+Get the server time zone.
+
+- `$timeZone` is a string representing the time zone name.
+
+```php
+$parser->setServerTimeZone($timeZone);
+```
+
+**Set User Time Zone**
+
+Get the user time zone.
+
+- `$timeZone` is a string representing the time zone name.
+
+```php
+$parser->setUserTimeZone($timeZone);
+```
+
+### DateTime (Fractional)
+
+```php
+$parser = TypeParser::getType('datetime-fractional');
+```
+
+**Get Locale Format**
+
+Get the locale format.
+
+```php
+$format = $parser->getLocaleFormat();
+```
+
+**Get Server Time Zone**
+
+Get the server time zone.
+
+```php
+$timeZone = $parser->getServerTimeZone();
+```
+
+**Get User Time Zone**
+
+Get the user time zone.
+
+```php
+$timeZone = $parser->getUserTimeZone();
+```
+
+**Set Locale Format**
+
+Set the locale format.
+
+- `$format` is a string representing the locale format.
+
+```php
+$parser->setLocaleFormat($format);
+```
+
+**Set Server Time Zone**
+
+Get the server time zone.
+
+- `$timeZone` is a string representing the time zone name.
+
+```php
+$parser->setServerTimeZone($timeZone);
+```
+
+**Set User Time Zone**
+
+Get the user time zone.
+
+- `$timeZone` is a string representing the time zone name.
+
+```php
+$parser->setUserTimeZone($timeZone);
+```
+
+### DateTime (Time Zone)
+
+```php
+$parser = TypeParser::getType('datetime-timezone');
 ```
 
 **Get Locale Format**
