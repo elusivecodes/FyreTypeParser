@@ -50,7 +50,7 @@ $typeClass = TypeParser::getType($type);
 Get the type class map.
 
 ```php
-$typeMap = TypeParser::getTypeMap();
+$typeMap = TypeParser::useMap();
 ```
 
 **Map Type**
@@ -111,16 +111,22 @@ Parse a PHP value to database value.
 $dbValue = $parser->toDatabase($value);
 ```
 
+### Binary
+
+```php
+$parser = TypeParser::use('binary');
+```
+
 ### Boolean
 
 ```php
-$parser = TypeParser::getType('boolean');
+$parser = TypeParser::use('boolean');
 ```
 
 ### Date
 
 ```php
-$parser = TypeParser::getType('date');
+$parser = TypeParser::use('date');
 ```
 
 **Get Locale Format**
@@ -144,7 +150,7 @@ $parser->setLocaleFormat($format);
 ### DateTime
 
 ```php
-$parser = TypeParser::getType('datetime');
+$parser = TypeParser::use('datetime');
 ```
 
 **Get Locale Format**
@@ -204,7 +210,7 @@ $parser->setUserTimeZone($timeZone);
 ### DateTime (Fractional)
 
 ```php
-$parser = TypeParser::getType('datetime-fractional');
+$parser = TypeParser::use('datetime-fractional');
 ```
 
 **Get Locale Format**
@@ -264,7 +270,7 @@ $parser->setUserTimeZone($timeZone);
 ### DateTime (Time Zone)
 
 ```php
-$parser = TypeParser::getType('datetime-timezone');
+$parser = TypeParser::use('datetime-timezone');
 ```
 
 **Get Locale Format**
@@ -324,25 +330,31 @@ $parser->setUserTimeZone($timeZone);
 ### Decimal
 
 ```php
-$parser = TypeParser::getType('decimal');
+$parser = TypeParser::use('decimal');
+```
+
+### Enum
+
+```php
+$parser = TypeParser::use('enum');
 ```
 
 ### Float
 
 ```php
-$parser = TypeParser::getType('float');
+$parser = TypeParser::use('float');
 ```
 
 ### Integer
 
 ```php
-$parser = TypeParser::getType('integer');
+$parser = TypeParser::use('integer');
 ```
 
 ### Json
 
 ```php
-$parser = TypeParser::getType('json');
+$parser = TypeParser::use('json');
 ```
 
 **Set Encoding Flags**
@@ -355,16 +367,28 @@ Set the encoding flags.
 $parser->setEncodingFlags($flags);
 ```
 
+### Set
+
+```php
+$parser = TypeParser::use('set');
+```
+
 ### String
 
 ```php
-$parser = TypeParser::getType('string');
+$parser = TypeParser::use('string');
+```
+
+### Text
+
+```php
+$parser = TypeParser::use('text');
 ```
 
 ### Time
 
 ```php
-$parser = TypeParser::getType('time');
+$parser = TypeParser::use('time');
 ```
 
 **Get Locale Format**
