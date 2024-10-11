@@ -181,7 +181,7 @@ $timeZone = $parser->getUserTimeZone();
 
 Set the locale format.
 
-- `$format` is a string representing the locale format.
+- `$format` is a string representing the locale format, or a *Closure* that returns the locale format.
 
 ```php
 $parser->setLocaleFormat($format);
@@ -201,7 +201,7 @@ $parser->setServerTimeZone($timeZone);
 
 Get the user time zone.
 
-- `$timeZone` is a string representing the time zone name.
+- `$timeZone` is a string representing the time zone name, or a *Closure* that returns the time zone name.
 
 ```php
 $parser->setUserTimeZone($timeZone);

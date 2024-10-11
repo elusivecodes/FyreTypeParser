@@ -163,6 +163,21 @@ trait DateTimeTestTrait
         );
     }
 
+    public function testDateTimeSetLocaleFormatCallback(): void
+    {
+        $dateParser = TypeParser::use('datetime');
+
+        $this->assertSame(
+            $dateParser,
+            $dateParser->setLocaleFormat(fn(): string => 'eee MMM dd yyyy HH:mm:ss')
+        );
+
+        $this->assertSame(
+            'eee MMM dd yyyy HH:mm:ss',
+            $dateParser->getLocaleFormat()
+        );
+    }
+
     public function testDateTimeSetServerTimeZone(): void
     {
         $dateParser = TypeParser::use('datetime');
@@ -185,6 +200,21 @@ trait DateTimeTestTrait
         $this->assertSame(
             $dateParser,
             $dateParser->setUserTimeZone('Australia/Brisbane')
+        );
+
+        $this->assertSame(
+            'Australia/Brisbane',
+            $dateParser->getUserTimeZone()
+        );
+    }
+
+    public function testDateTimeSetUserTimeZoneCallback(): void
+    {
+        $dateParser = TypeParser::use('datetime');
+
+        $this->assertSame(
+            $dateParser,
+            $dateParser->setUserTimeZone(fn(): string => 'Australia/Brisbane')
         );
 
         $this->assertSame(

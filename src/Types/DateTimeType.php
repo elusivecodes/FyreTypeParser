@@ -3,10 +3,12 @@ declare(strict_types=1);
 
 namespace Fyre\DB\Types;
 
+use Closure;
 use DateTimeInterface;
 use DateTimeZone;
 use Fyre\DateTime\DateTime;
 
+use function call_user_func;
 use function ctype_digit;
 use function is_scalar;
 
@@ -28,7 +30,7 @@ class DateTimeType extends Type
         'Y-m-d\TH:i:s.uP',
     ];
 
-    protected string|null $localeFormat = null;
+    protected Closure|string|null $localeFormat = null;
 
     protected string $serverFormat = 'Y-m-d H:i:s';
 
@@ -36,7 +38,7 @@ class DateTimeType extends Type
 
     protected bool $startOfDay = false;
 
-    protected string|null $userTimeZone = null;
+    protected Closure|string|null $userTimeZone = null;
 
     /**
      * Parse a database value to PHP value.
@@ -50,6 +52,7 @@ class DateTimeType extends Type
             return null;
         }
 
+        $userTimeZone = $this->getUserTimeZone();
         if (ctype_digit((string) $value)) {
             $date = DateTime::fromTimestamp($value, $this->serverTimeZone);
         } else {
@@ -57,11 +60,11 @@ class DateTimeType extends Type
             $timeZone = new DateTimeZone($timeZoneName);
 
             $date = new \DateTime($value, $timeZone);
-            $date = DateTime::fromDateTime($date, $this->userTimeZone);
+            $date = DateTime::fromDateTime($date, $userTimeZone);
         }
 
-        if ($this->userTimeZone && $date->getTimeZone() !== $this->userTimeZone) {
-            $date = $date->setTimeZone($this->userTimeZone);
+        if ($userTimeZone && $date->getTimeZone() !== $userTimeZone) {
+            $date = $date->setTimeZone($userTimeZone);
         }
 
         if ($this->startOfDay) {
@@ -78,6 +81,10 @@ class DateTimeType extends Type
      */
     public function getLocaleFormat(): string|null
     {
+        if ($this->localeFormat && $this->localeFormat instanceof Closure) {
+            return call_user_func($this->localeFormat);
+        }
+
         return $this->localeFormat;
     }
 
@@ -98,6 +105,10 @@ class DateTimeType extends Type
      */
     public function getUserTimeZone(): string|null
     {
+        if ($this->userTimeZone && $this->userTimeZone instanceof Closure) {
+            return call_user_func($this->userTimeZone);
+        }
+
         return $this->userTimeZone;
     }
 
@@ -113,18 +124,21 @@ class DateTimeType extends Type
             return null;
         }
 
+        $userTimeZone = $this->getUserTimeZone();
+        $localeFormat = $this->getLocaleFormat();
+
         $date = null;
 
         if (is_scalar($value) && ctype_digit((string) $value)) {
-            $date = DateTime::fromTimestamp($value, $this->userTimeZone);
+            $date = DateTime::fromTimestamp($value, $userTimeZone);
         } else if ($value instanceof DateTime) {
             $date = $value;
         } else if ($value instanceof DateTimeInterface) {
-            $date = DateTime::fromDateTime($value, $this->userTimeZone);
-        } else if ($this->localeFormat) {
-            $date = DateTime::fromFormat($this->localeFormat, $value, $this->userTimeZone);
+            $date = DateTime::fromDateTime($value, $userTimeZone);
+        } else if ($localeFormat) {
+            $date = DateTime::fromFormat($localeFormat, $value, $userTimeZone);
         } else {
-            $timeZoneName = $this->userTimeZone ?? DateTime::now()->getTimeZone();
+            $timeZoneName = $userTimeZone ?? DateTime::getDefaultTimeZone();
             $timeZone = new DateTimeZone($timeZoneName);
 
             foreach ($this->formats as $format) {
@@ -134,7 +148,7 @@ class DateTimeType extends Type
                     continue;
                 }
 
-                $date = DateTime::fromDateTime($tempDate, $this->userTimeZone);
+                $date = DateTime::fromDateTime($tempDate, $userTimeZone);
             }
         }
 
@@ -152,10 +166,10 @@ class DateTimeType extends Type
     /**
      * Set the locale format.
      *
-     * @param string|null $format The locale format.
+     * @param Closure|string|null $format The locale format.
      * @return DateTimeType The DateTimeType.
      */
-    public function setLocaleFormat(string|null $format): static
+    public function setLocaleFormat(Closure|string|null $format): static
     {
         $this->localeFormat = $format;
 
@@ -178,10 +192,10 @@ class DateTimeType extends Type
     /**
      * Set the user time zone.
      *
-     * @param string|null $timeZone The user time zone.
+     * @param Closure|string|null $timeZone The user time zone.
      * @return DateTimeType The DateTimeType.
      */
-    public function setUserTimeZone(string|null $timeZone): static
+    public function setUserTimeZone(Closure|string|null $timeZone): static
     {
         $this->userTimeZone = $timeZone;
 
