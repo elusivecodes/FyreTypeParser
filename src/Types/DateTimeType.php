@@ -8,7 +8,6 @@ use DateTimeInterface;
 use DateTimeZone;
 use Fyre\DateTime\DateTime;
 
-use function call_user_func;
 use function ctype_digit;
 use function is_scalar;
 
@@ -82,7 +81,7 @@ class DateTimeType extends Type
     public function getLocaleFormat(): string|null
     {
         if ($this->localeFormat && $this->localeFormat instanceof Closure) {
-            return call_user_func($this->localeFormat);
+            return ($this->localeFormat)();
         }
 
         return $this->localeFormat;
@@ -106,7 +105,7 @@ class DateTimeType extends Type
     public function getUserTimeZone(): string|null
     {
         if ($this->userTimeZone && $this->userTimeZone instanceof Closure) {
-            return call_user_func($this->userTimeZone);
+            return ($this->userTimeZone)();
         }
 
         return $this->userTimeZone;
