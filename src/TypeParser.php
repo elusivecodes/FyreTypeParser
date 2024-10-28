@@ -80,12 +80,15 @@ class TypeParser
      *
      * @param string $type The value type.
      * @param string $typeClass The class name.
+     * @return static The TypeParser.
      */
-    public function map(string $type, string $typeClass): void
+    public function map(string $type, string $typeClass): static
     {
         $this->types[$type] = $typeClass;
 
         unset($this->handlers[$type]);
+
+        return $this;
     }
 
     /**

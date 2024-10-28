@@ -82,6 +82,19 @@ final class TypeParserTest extends TestCase
         );
     }
 
+    public function testMap(): void
+    {
+        $this->assertSame(
+            $this->type,
+            $this->type->map('boolean', IntegerType::class)
+        );
+
+        $this->assertInstanceOf(
+            IntegerType::class,
+            $this->type->use('boolean')
+        );
+    }
+
     public function testUse(): void
     {
         $this->assertSame(

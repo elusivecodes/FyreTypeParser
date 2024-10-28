@@ -43,7 +43,7 @@ use Fyre\DB\TypeParser;
 ## TypeParser Creation
 
 ```php
-$type = new TypeParser();
+$typeParser = new TypeParser();
 ```
 
 
@@ -54,7 +54,7 @@ $type = new TypeParser();
 Clear all loaded types.
 
 ```php
-$type->clear();
+$typeParser->clear();
 ```
 
 **Get Type**
@@ -64,7 +64,7 @@ Get the mapped [*Type*](#types) class for a value type.
 - `$type` is a string representing the value type.
 
 ```php
-$typeClass = $type->getType($type);
+$typeClass = $typeParser->getType($type);
 ```
 
 **Get Type Map**
@@ -72,7 +72,7 @@ $typeClass = $type->getType($type);
 Get the type class map.
 
 ```php
-$typeMap = $type->getTypeMap();
+$typeMap = $typeParser->getTypeMap();
 ```
 
 **Map**
@@ -83,7 +83,7 @@ Map a value type to a class.
 - `$typeClass` is a string representing the class name.
 
 ```php
-$type->map($type, $typeClass);
+$typeParser->map($type, $typeClass);
 ```
 
 **Use**
@@ -93,7 +93,7 @@ Load a shared [*Type*](#types) instance for a value type.
 - `$type` is a string representing the value type.
 
 ```php
-$parser = $type->use($type);
+$parser = $typeParser->use($type);
 ```
 
 
@@ -136,19 +136,19 @@ $dbValue = $parser->toDatabase($value);
 ### Binary
 
 ```php
-$parser = $type->use('binary');
+$parser = $typeParser->use('binary');
 ```
 
 ### Boolean
 
 ```php
-$parser = $type->use('boolean');
+$parser = $typeParser->use('boolean');
 ```
 
 ### Date
 
 ```php
-$parser = $type->use('date');
+$parser = $typeParser->use('date');
 ```
 
 **Get Locale Format**
@@ -172,7 +172,7 @@ $parser->setLocaleFormat($format);
 ### DateTime
 
 ```php
-$parser = $type->use('datetime');
+$parser = $typeParser->use('datetime');
 ```
 
 **Get Locale Format**
@@ -232,7 +232,7 @@ $parser->setUserTimeZone($timeZone);
 ### DateTime (Fractional)
 
 ```php
-$parser = $type->use('datetime-fractional');
+$parser = $typeParser->use('datetime-fractional');
 ```
 
 **Get Locale Format**
@@ -292,7 +292,7 @@ $parser->setUserTimeZone($timeZone);
 ### DateTime (Time Zone)
 
 ```php
-$parser = $type->use('datetime-timezone');
+$parser = $typeParser->use('datetime-timezone');
 ```
 
 **Get Locale Format**
@@ -352,31 +352,31 @@ $parser->setUserTimeZone($timeZone);
 ### Decimal
 
 ```php
-$parser = $type->use('decimal');
+$parser = $typeParser->use('decimal');
 ```
 
 ### Enum
 
 ```php
-$parser = $type->use('enum');
+$parser = $typeParser->use('enum');
 ```
 
 ### Float
 
 ```php
-$parser = $type->use('float');
+$parser = $typeParser->use('float');
 ```
 
 ### Integer
 
 ```php
-$parser = $type->use('integer');
+$parser = $typeParser->use('integer');
 ```
 
 ### Json
 
 ```php
-$parser = $type->use('json');
+$parser = $typeParser->use('json');
 ```
 
 **Set Encoding Flags**
@@ -392,25 +392,25 @@ $parser->setEncodingFlags($flags);
 ### Set
 
 ```php
-$parser = $type->use('set');
+$parser = $typeParser->use('set');
 ```
 
 ### String
 
 ```php
-$parser = $type->use('string');
+$parser = $typeParser->use('string');
 ```
 
 ### Text
 
 ```php
-$parser = $type->use('text');
+$parser = $typeParser->use('text');
 ```
 
 ### Time
 
 ```php
-$parser = $type->use('time');
+$parser = $typeParser->use('time');
 ```
 
 **Get Locale Format**
