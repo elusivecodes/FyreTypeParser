@@ -23,11 +23,11 @@ use Fyre\DB\Types\Type;
 /**
  * TypeParser
  */
-abstract class TypeParser
+class TypeParser
 {
-    protected static array $handlers = [];
+    protected array $handlers = [];
 
-    protected static array $types = [
+    protected array $types = [
         'binary' => BinaryType::class,
         'boolean' => BooleanType::class,
         'date' => DateType::class,
@@ -49,9 +49,9 @@ abstract class TypeParser
     /**
      * Clear all loaded types.
      */
-    public static function clear(): void
+    public function clear(): void
     {
-        static::$handlers = [];
+        $this->handlers = [];
     }
 
     /**
@@ -60,9 +60,9 @@ abstract class TypeParser
      * @param string $type The value type.
      * @return string The class name.
      */
-    public static function getType(string $type): string
+    public function getType(string $type): string
     {
-        return static::$types[$type] ?? StringType::class;
+        return $this->types[$type] ?? StringType::class;
     }
 
     /**
@@ -70,9 +70,9 @@ abstract class TypeParser
      *
      * @return array The type class map.
      */
-    public static function getTypeMap(): array
+    public function getTypeMap(): array
     {
-        return static::$types;
+        return $this->types;
     }
 
     /**
@@ -81,10 +81,11 @@ abstract class TypeParser
      * @param string $type The value type.
      * @param string $typeClass The class name.
      */
-    public static function mapType(string $type, string $typeClass): void
+    public function map(string $type, string $typeClass): void
     {
-        static::$types[$type] = $typeClass;
-        unset(static::$handlers[$type]);
+        $this->types[$type] = $typeClass;
+
+        unset($this->handlers[$type]);
     }
 
     /**
@@ -93,20 +94,20 @@ abstract class TypeParser
      * @param string $type The value type.
      * @return Type The Type.
      */
-    public static function use(string $type): Type
+    public function use(string $type): Type
     {
-        return static::$handlers[$type] ??= static::load($type);
+        return $this->handlers[$type] ??= $this->build($type);
     }
 
     /**
-     * Load a Type class for a value type.
+     * Build a Type class for a value type.
      *
      * @param string $type The value type.
      * @return Type The Type.
      */
-    protected static function load(string $type): Type
+    protected function build(string $type): Type
     {
-        $typeClass = static::getType($type);
+        $typeClass = $this->getType($type);
 
         return new $typeClass($type);
     }

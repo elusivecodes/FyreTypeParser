@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace Tests;
 
 use Fyre\DateTime\DateTime;
-use Fyre\DB\TypeParser;
 
 trait DateTimeFractionalTestTrait
 {
@@ -12,20 +11,20 @@ trait DateTimeFractionalTestTrait
     {
         $this->assertSame(
             '2021-12-31T22:59:11.123+00:00',
-            TypeParser::use('datetime-fractional')->fromDatabase('2021-12-31 22:59:11.12345')->toISOString()
+            $this->type->use('datetime-fractional')->fromDatabase('2021-12-31 22:59:11.12345')->toISOString()
         );
     }
 
     public function testDateTimeFractionalFromDatabaseNull(): void
     {
         $this->assertNull(
-            TypeParser::use('datetime-fractional')->fromDatabase(null)
+            $this->type->use('datetime-fractional')->fromDatabase(null)
         );
     }
 
     public function testDateTimeFractionalFromDatabaseServerTimeZone(): void
     {
-        $dateParser = TypeParser::use('datetime-fractional');
+        $dateParser = $this->type->use('datetime-fractional');
 
         $dateParser->setServerTimeZone('Australia/Brisbane');
 
@@ -39,13 +38,13 @@ trait DateTimeFractionalTestTrait
     {
         $this->assertSame(
             '2021-12-31T22:59:11.000+00:00',
-            TypeParser::use('datetime-fractional')->fromDatabase(1640991551)->toISOString()
+            $this->type->use('datetime-fractional')->fromDatabase(1640991551)->toISOString()
         );
     }
 
     public function testDateTimeFractionalFromDatabaseUserTimeZone(): void
     {
-        $dateParser = TypeParser::use('datetime-fractional');
+        $dateParser = $this->type->use('datetime-fractional');
 
         $dateParser->setUserTimeZone('Australia/Brisbane');
 
@@ -57,7 +56,7 @@ trait DateTimeFractionalTestTrait
 
     public function testDateTimeFractionalParse(): void
     {
-        $date = TypeParser::use('datetime-fractional')->parse('2022-01-01T08:59:11.12345');
+        $date = $this->type->use('datetime-fractional')->parse('2022-01-01T08:59:11.12345');
 
         $this->assertInstanceOf(
             DateTime::class,
@@ -76,20 +75,20 @@ trait DateTimeFractionalTestTrait
 
         $this->assertSame(
             $date,
-            TypeParser::use('datetime-fractional')->parse($date)
+            $this->type->use('datetime-fractional')->parse($date)
         );
     }
 
     public function testDateTimeFractionalParseInvalid(): void
     {
         $this->assertNull(
-            TypeParser::use('datetime-fractional')->parse('invalid')
+            $this->type->use('datetime-fractional')->parse('invalid')
         );
     }
 
     public function testDateTimeFractionalParseLocaleFormat(): void
     {
-        $dateParser = TypeParser::use('datetime-fractional');
+        $dateParser = $this->type->use('datetime-fractional');
 
         $this->assertSame(
             $dateParser,
@@ -108,14 +107,14 @@ trait DateTimeFractionalTestTrait
 
         $this->assertSame(
             '2021-12-31T22:59:11.000+00:00',
-            TypeParser::use('datetime-fractional')->parse($date)->toISOString()
+            $this->type->use('datetime-fractional')->parse($date)->toISOString()
         );
     }
 
     public function testDateTimeFractionalParseNull(): void
     {
         $this->assertNull(
-            TypeParser::use('datetime-fractional')->parse(null)
+            $this->type->use('datetime-fractional')->parse(null)
         );
     }
 
@@ -123,13 +122,13 @@ trait DateTimeFractionalTestTrait
     {
         $this->assertSame(
             '2021-12-31T22:59:11.000+00:00',
-            TypeParser::use('datetime-fractional')->parse(1640991551)->toISOString()
+            $this->type->use('datetime-fractional')->parse(1640991551)->toISOString()
         );
     }
 
     public function testDateTimeFractionalParseUserTimeZone(): void
     {
-        $dateParser = TypeParser::use('datetime-fractional');
+        $dateParser = $this->type->use('datetime-fractional');
 
         $dateParser->setUserTimeZone('Australia/Brisbane');
         $dateParser->setLocaleFormat('eee MMM dd yyyy HH:mm:ss.SSS');
@@ -142,7 +141,7 @@ trait DateTimeFractionalTestTrait
 
     public function testDateTimeFractionalSetLocaleFormat(): void
     {
-        $dateParser = TypeParser::use('datetime-fractional');
+        $dateParser = $this->type->use('datetime-fractional');
 
         $this->assertSame(
             $dateParser,
@@ -157,7 +156,7 @@ trait DateTimeFractionalTestTrait
 
     public function testDateTimeFractionalSetServerTimeZone(): void
     {
-        $dateParser = TypeParser::use('datetime-fractional');
+        $dateParser = $this->type->use('datetime-fractional');
 
         $this->assertSame(
             $dateParser,
@@ -172,7 +171,7 @@ trait DateTimeFractionalTestTrait
 
     public function testDateTimeFractionalSetUserTimeZone(): void
     {
-        $dateParser = TypeParser::use('datetime-fractional');
+        $dateParser = $this->type->use('datetime-fractional');
 
         $this->assertSame(
             $dateParser,
@@ -191,20 +190,20 @@ trait DateTimeFractionalTestTrait
 
         $this->assertSame(
             '2021-12-31 22:59:11.000000',
-            TypeParser::use('datetime-fractional')->toDatabase($date)
+            $this->type->use('datetime-fractional')->toDatabase($date)
         );
     }
 
     public function testDateTimeFractionalToDatabaseNull(): void
     {
         $this->assertNull(
-            TypeParser::use('datetime-fractional')->toDatabase(null)
+            $this->type->use('datetime-fractional')->toDatabase(null)
         );
     }
 
     public function testDateTimeFractionalToDatabaseServerTimeZone(): void
     {
-        $dateParser = TypeParser::use('datetime-fractional');
+        $dateParser = $this->type->use('datetime-fractional');
 
         $dateParser->setServerTimeZone('Australia/Brisbane');
 
@@ -220,7 +219,7 @@ trait DateTimeFractionalTestTrait
     {
         $this->assertSame(
             '2021-12-31 22:59:11.000000',
-            TypeParser::use('datetime-fractional')->toDatabase('2021-12-31 22:59:11.12345')
+            $this->type->use('datetime-fractional')->toDatabase('2021-12-31 22:59:11.12345')
         );
     }
 }

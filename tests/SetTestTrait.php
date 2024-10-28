@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use Fyre\DB\TypeParser;
 use stdClass;
 
 trait SetTestTrait
@@ -12,14 +11,14 @@ trait SetTestTrait
     {
         $this->assertSame(
             ['a', 'b', 'c'],
-            TypeParser::use('set')->fromDatabase('a,b,c')
+            $this->type->use('set')->fromDatabase('a,b,c')
         );
     }
 
     public function testSetFromDatabaseNull(): void
     {
         $this->assertNull(
-            TypeParser::use('set')->fromDatabase(null)
+            $this->type->use('set')->fromDatabase(null)
         );
     }
 
@@ -27,7 +26,7 @@ trait SetTestTrait
     {
         $this->assertSame(
             ['a', 'b', 'c'],
-            TypeParser::use('set')->parse('a,b,c')
+            $this->type->use('set')->parse('a,b,c')
         );
     }
 
@@ -35,21 +34,21 @@ trait SetTestTrait
     {
         $this->assertSame(
             ['a', 'b', 'c'],
-            TypeParser::use('set')->parse(['a', 'b', 'c'])
+            $this->type->use('set')->parse(['a', 'b', 'c'])
         );
     }
 
     public function testSetParseInvalid(): void
     {
         $this->assertNull(
-            TypeParser::use('set')->parse(new stdClass())
+            $this->type->use('set')->parse(new stdClass())
         );
     }
 
     public function testSetParseNull(): void
     {
         $this->assertNull(
-            TypeParser::use('set')->parse(null)
+            $this->type->use('set')->parse(null)
         );
     }
 
@@ -57,7 +56,7 @@ trait SetTestTrait
     {
         $this->assertSame(
             'a,b,c',
-            TypeParser::use('set')->toDatabase(['a', 'b', 'c'])
+            $this->type->use('set')->toDatabase(['a', 'b', 'c'])
         );
     }
 
@@ -66,14 +65,14 @@ trait SetTestTrait
         $obj = new stdClass();
 
         $this->assertNull(
-            TypeParser::use('set')->toDatabase(new stdClass())
+            $this->type->use('set')->toDatabase(new stdClass())
         );
     }
 
     public function testSetToDatabaseNull(): void
     {
         $this->assertNull(
-            TypeParser::use('set')->toDatabase(null)
+            $this->type->use('set')->toDatabase(null)
         );
     }
 
@@ -81,7 +80,7 @@ trait SetTestTrait
     {
         $this->assertSame(
             'a,b,c',
-            TypeParser::use('set')->toDatabase('a,b,c')
+            $this->type->use('set')->toDatabase('a,b,c')
         );
     }
 }

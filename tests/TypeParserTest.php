@@ -22,7 +22,7 @@ use Fyre\DB\Types\TextType;
 use Fyre\DB\Types\TimeType;
 use PHPUnit\Framework\TestCase;
 
-final class TypeTest extends TestCase
+final class TypeParserTest extends TestCase
 {
     use BinaryTestTrait;
     use BooleanTestTrait;
@@ -39,11 +39,13 @@ final class TypeTest extends TestCase
     use TextTestTrait;
     use TimeTestTrait;
 
+    protected TypeParser $type;
+
     public function testGetType(): void
     {
         $this->assertSame(
             BooleanType::class,
-            TypeParser::getType('boolean')
+            $this->type->getType('boolean')
         );
     }
 
@@ -51,7 +53,7 @@ final class TypeTest extends TestCase
     {
         $this->assertSame(
             StringType::class,
-            TypeParser::getType('test')
+            $this->type->getType('test')
         );
     }
 
@@ -76,15 +78,15 @@ final class TypeTest extends TestCase
                 'text' => TextType::class,
                 'time' => TimeType::class,
             ],
-            TypeParser::getTypeMap()
+            $this->type->getTypeMap()
         );
     }
 
     public function testUse(): void
     {
         $this->assertSame(
-            TypeParser::use('boolean'),
-            TypeParser::use('boolean')
+            $this->type->use('boolean'),
+            $this->type->use('boolean')
         );
     }
 
@@ -95,6 +97,6 @@ final class TypeTest extends TestCase
 
     protected function setUp(): void
     {
-        TypeParser::clear();
+        $this->type = new TypeParser();
     }
 }

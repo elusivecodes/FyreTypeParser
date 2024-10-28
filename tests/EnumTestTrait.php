@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use Fyre\DB\TypeParser;
 use stdClass;
 
 trait EnumTestTrait
@@ -12,14 +11,14 @@ trait EnumTestTrait
     {
         $this->assertSame(
             'test',
-            TypeParser::use('enum')->fromDatabase('test')
+            $this->type->use('enum')->fromDatabase('test')
         );
     }
 
     public function testEnumFromDatabaseNull(): void
     {
         $this->assertNull(
-            TypeParser::use('enum')->fromDatabase(null)
+            $this->type->use('enum')->fromDatabase(null)
         );
     }
 
@@ -27,21 +26,21 @@ trait EnumTestTrait
     {
         $this->assertSame(
             'test',
-            TypeParser::use('enum')->parse('test')
+            $this->type->use('enum')->parse('test')
         );
     }
 
     public function testEnumParseInvalid(): void
     {
         $this->assertNull(
-            TypeParser::use('enum')->parse(new stdClass())
+            $this->type->use('enum')->parse(new stdClass())
         );
     }
 
     public function testEnumParseNull(): void
     {
         $this->assertNull(
-            TypeParser::use('enum')->parse(null)
+            $this->type->use('enum')->parse(null)
         );
     }
 
@@ -49,7 +48,7 @@ trait EnumTestTrait
     {
         $this->assertSame(
             'test',
-            TypeParser::use('enum')->toDatabase('test')
+            $this->type->use('enum')->toDatabase('test')
         );
     }
 
@@ -58,14 +57,14 @@ trait EnumTestTrait
         $obj = new stdClass();
 
         $this->assertNull(
-            TypeParser::use('enum')->toDatabase(new stdClass())
+            $this->type->use('enum')->toDatabase(new stdClass())
         );
     }
 
     public function testEnumToDatabaseNull(): void
     {
         $this->assertNull(
-            TypeParser::use('enum')->toDatabase(null)
+            $this->type->use('enum')->toDatabase(null)
         );
     }
 }

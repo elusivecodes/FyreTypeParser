@@ -5,8 +5,23 @@
 
 ## Table Of Contents
 - [Installation](#installation)
-- [Methods](#methods)
+- [TypeParser Creation](#typeparser-creation)
+- [TypeParser Methods](#typeparser-methods)
 - [Types](#types)
+    - [Binary](#binary)
+    - [Boolean](#boolean)
+    - [DateTime](#datetime)
+    - [DateTime (Fractional)](#datetime-fractional)
+    - [DateTime (Time Zone)](#datetime-time-zone)
+    - [Decimal](#decimal)
+    - [Enum](#enum)
+    - [Float](#float)
+    - [Integer](#integer)
+    - [Json](#json)
+    - [Set](#set)
+    - [String](#string)
+    - [Text](#text)
+    - [Time](#time)
 
 
 
@@ -25,14 +40,21 @@ use Fyre\DB\TypeParser;
 ```
 
 
-## Methods
+## TypeParser Creation
+
+```php
+$type = new TypeParser();
+```
+
+
+## TypeParser Methods
 
 **Clear**
 
 Clear all loaded types.
 
 ```php
-TypeParser::clear();
+$type->clear();
 ```
 
 **Get Type**
@@ -42,7 +64,7 @@ Get the mapped [*Type*](#types) class for a value type.
 - `$type` is a string representing the value type.
 
 ```php
-$typeClass = TypeParser::getType($type);
+$typeClass = $type->getType($type);
 ```
 
 **Get Type Map**
@@ -50,10 +72,10 @@ $typeClass = TypeParser::getType($type);
 Get the type class map.
 
 ```php
-$typeMap = TypeParser::useMap();
+$typeMap = $type->getTypeMap();
 ```
 
-**Map Type**
+**Map**
 
 Map a value type to a class.
 
@@ -61,7 +83,7 @@ Map a value type to a class.
 - `$typeClass` is a string representing the class name.
 
 ```php
-TypeParser::mapType($type, $typeClass);
+$type->map($type, $typeClass);
 ```
 
 **Use**
@@ -71,7 +93,7 @@ Load a shared [*Type*](#types) instance for a value type.
 - `$type` is a string representing the value type.
 
 ```php
-$parser = TypeParser::use($type);
+$parser = $type->use($type);
 ```
 
 
@@ -114,19 +136,19 @@ $dbValue = $parser->toDatabase($value);
 ### Binary
 
 ```php
-$parser = TypeParser::use('binary');
+$parser = $type->use('binary');
 ```
 
 ### Boolean
 
 ```php
-$parser = TypeParser::use('boolean');
+$parser = $type->use('boolean');
 ```
 
 ### Date
 
 ```php
-$parser = TypeParser::use('date');
+$parser = $type->use('date');
 ```
 
 **Get Locale Format**
@@ -150,7 +172,7 @@ $parser->setLocaleFormat($format);
 ### DateTime
 
 ```php
-$parser = TypeParser::use('datetime');
+$parser = $type->use('datetime');
 ```
 
 **Get Locale Format**
@@ -210,7 +232,7 @@ $parser->setUserTimeZone($timeZone);
 ### DateTime (Fractional)
 
 ```php
-$parser = TypeParser::use('datetime-fractional');
+$parser = $type->use('datetime-fractional');
 ```
 
 **Get Locale Format**
@@ -270,7 +292,7 @@ $parser->setUserTimeZone($timeZone);
 ### DateTime (Time Zone)
 
 ```php
-$parser = TypeParser::use('datetime-timezone');
+$parser = $type->use('datetime-timezone');
 ```
 
 **Get Locale Format**
@@ -330,31 +352,31 @@ $parser->setUserTimeZone($timeZone);
 ### Decimal
 
 ```php
-$parser = TypeParser::use('decimal');
+$parser = $type->use('decimal');
 ```
 
 ### Enum
 
 ```php
-$parser = TypeParser::use('enum');
+$parser = $type->use('enum');
 ```
 
 ### Float
 
 ```php
-$parser = TypeParser::use('float');
+$parser = $type->use('float');
 ```
 
 ### Integer
 
 ```php
-$parser = TypeParser::use('integer');
+$parser = $type->use('integer');
 ```
 
 ### Json
 
 ```php
-$parser = TypeParser::use('json');
+$parser = $type->use('json');
 ```
 
 **Set Encoding Flags**
@@ -370,25 +392,25 @@ $parser->setEncodingFlags($flags);
 ### Set
 
 ```php
-$parser = TypeParser::use('set');
+$parser = $type->use('set');
 ```
 
 ### String
 
 ```php
-$parser = TypeParser::use('string');
+$parser = $type->use('string');
 ```
 
 ### Text
 
 ```php
-$parser = TypeParser::use('text');
+$parser = $type->use('text');
 ```
 
 ### Time
 
 ```php
-$parser = TypeParser::use('time');
+$parser = $type->use('time');
 ```
 
 **Get Locale Format**

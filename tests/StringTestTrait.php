@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use Fyre\DB\TypeParser;
 use stdClass;
 
 trait StringTestTrait
@@ -12,14 +11,14 @@ trait StringTestTrait
     {
         $this->assertSame(
             'test',
-            TypeParser::use('string')->fromDatabase('test')
+            $this->type->use('string')->fromDatabase('test')
         );
     }
 
     public function testStringFromDatabaseNull(): void
     {
         $this->assertNull(
-            TypeParser::use('string')->fromDatabase(null)
+            $this->type->use('string')->fromDatabase(null)
         );
     }
 
@@ -27,21 +26,21 @@ trait StringTestTrait
     {
         $this->assertSame(
             'test',
-            TypeParser::use('string')->parse('test')
+            $this->type->use('string')->parse('test')
         );
     }
 
     public function testStringParseInvalid(): void
     {
         $this->assertNull(
-            TypeParser::use('string')->parse(new stdClass())
+            $this->type->use('string')->parse(new stdClass())
         );
     }
 
     public function testStringParseNull(): void
     {
         $this->assertNull(
-            TypeParser::use('string')->parse(null)
+            $this->type->use('string')->parse(null)
         );
     }
 
@@ -49,7 +48,7 @@ trait StringTestTrait
     {
         $this->assertSame(
             'test',
-            TypeParser::use('string')->toDatabase('test')
+            $this->type->use('string')->toDatabase('test')
         );
     }
 
@@ -58,14 +57,14 @@ trait StringTestTrait
         $obj = new stdClass();
 
         $this->assertNull(
-            TypeParser::use('string')->toDatabase(new stdClass())
+            $this->type->use('string')->toDatabase(new stdClass())
         );
     }
 
     public function testStringToDatabaseNull(): void
     {
         $this->assertNull(
-            TypeParser::use('string')->toDatabase(null)
+            $this->type->use('string')->toDatabase(null)
         );
     }
 }
