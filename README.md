@@ -5,8 +5,8 @@
 
 ## Table Of Contents
 - [Installation](#installation)
-- [TypeParser Creation](#typeparser-creation)
-- [TypeParser Methods](#typeparser-methods)
+- [Basic Usage](#basic-usage)
+- [Methods](#methods)
 - [Types](#types)
     - [Binary](#binary)
     - [Boolean](#boolean)
@@ -40,14 +40,14 @@ use Fyre\DB\TypeParser;
 ```
 
 
-## TypeParser Creation
+## Basic Usage
 
 ```php
 $typeParser = new TypeParser();
 ```
 
 
-## TypeParser Methods
+## Methods
 
 **Clear**
 
