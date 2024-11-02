@@ -48,6 +48,14 @@ use Fyre\DB\TypeParser;
 $typeParser = new TypeParser($container);
 ```
 
+**Autoloading**
+
+It is recommended to bind the *TypeParser* to the [*Container*](https://github.com/elusivecodes/FyreContainer) as a singleton.
+
+```php
+$container->singleton(TypeParser::class);
+```
+
 
 ## Methods
 
