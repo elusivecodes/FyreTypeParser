@@ -98,7 +98,7 @@ Load a shared [*Type*](#types) instance for a value type.
 $parser = $typeParser->use($type);
 ```
 
-[*Type*](#types) dependencies will be resolved automatically via the [*Container*](https://github.com/elusivecodes/FyreContainer).
+Custom [*Type*](#types) dependencies will be resolved automatically from the [*Container*](https://github.com/elusivecodes/FyreContainer).
 
 
 ## Types
