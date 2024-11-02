@@ -20,6 +20,7 @@
         }
     },
     "require": {
+        "fyre/container": "^1.0",
         "fyre/datetime": "^3.0"
     },
     "require-dev": {

@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Fyre\DB;
 
+use Fyre\Container\Container;
 use Fyre\DB\Types\BinaryType;
 use Fyre\DB\Types\BooleanType;
 use Fyre\DB\Types\DateTimeFractionalType;
@@ -25,6 +26,8 @@ use Fyre\DB\Types\Type;
  */
 class TypeParser
 {
+    protected Container $container;
+
     protected array $handlers = [];
 
     protected array $types = [
@@ -45,6 +48,16 @@ class TypeParser
         'text' => TextType::class,
         'time' => TimeType::class,
     ];
+
+    /**
+     * New TypeParser constructor.
+     *
+     * @param Container $container The Container.
+     */
+    public function __construct(Container $container)
+    {
+        $this->container = $container;
+    }
 
     /**
      * Clear all loaded types.
@@ -112,6 +125,6 @@ class TypeParser
     {
         $typeClass = $this->getType($type);
 
-        return new $typeClass($type);
+        return $this->container->build($typeClass);
     }
 }

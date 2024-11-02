@@ -42,8 +42,10 @@ use Fyre\DB\TypeParser;
 
 ## Basic Usage
 
+- `$container` is a [*Container*](https://github.com/elusivecodes/FyreContainer).
+
 ```php
-$typeParser = new TypeParser();
+$typeParser = new TypeParser($container);
 ```
 
 
@@ -95,6 +97,8 @@ Load a shared [*Type*](#types) instance for a value type.
 ```php
 $parser = $typeParser->use($type);
 ```
+
+[*Type*](#types) dependencies will be resolved automatically via the [*Container*](https://github.com/elusivecodes/FyreContainer).
 
 
 ## Types

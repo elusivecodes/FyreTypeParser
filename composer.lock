@@ -4,8 +4,50 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e43fe9748d292ff3120c7d3aaeaa3416",
+    "content-hash": "b514e2d6e4b9de8c7d2fd8c4a69b418b",
     "packages": [
+        {
+            "name": "fyre/container",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/elusivecodes/FyreContainer.git",
+                "reference": "d84e485930b6782fb20300a4ab87a404280f2114"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/elusivecodes/FyreContainer/zipball/d84e485930b6782fb20300a4ab87a404280f2114",
+                "reference": "d84e485930b6782fb20300a4ab87a404280f2114",
+                "shasum": ""
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.59",
+                "fyre/php-cs-fixer-config": "^1.0",
+                "phpunit/phpunit": "^11"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Fyre\\Container\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "elusivecodes",
+                    "email": "elusivecodes@gmail.com"
+                }
+            ],
+            "description": "A container library.",
+            "support": {
+                "issues": "https://github.com/elusivecodes/FyreContainer/issues",
+                "source": "https://github.com/elusivecodes/FyreContainer/tree/v1.0.2"
+            },
+            "time": "2024-11-02T02:28:03+00:00"
+        },
         {
             "name": "fyre/datetime",
             "version": "v3.2.1",

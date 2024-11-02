@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Tests;
 
+use Fyre\Container\Container;
 use Fyre\DateTime\DateTime;
 use Fyre\DB\TypeParser;
 use Fyre\DB\Types\BinaryType;
@@ -110,6 +111,6 @@ final class TypeParserTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->type = new TypeParser();
+        $this->type = Container::getInstance()->use(TypeParser::class);
     }
 }
