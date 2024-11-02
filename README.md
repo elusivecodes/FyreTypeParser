@@ -56,6 +56,12 @@ It is recommended to bind the *TypeParser* to the [*Container*](https://github.c
 $container->singleton(TypeParser::class);
 ```
 
+Any dependencies will be injected automatically when loading from the [*Container*](https://github.com/elusivecodes/FyreContainer).
+
+```php
+$typeParser = $container->use(TypeParser::class);
+```
+
 
 ## Methods
 
