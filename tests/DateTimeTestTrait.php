@@ -109,6 +109,21 @@ trait DateTimeTestTrait
         );
     }
 
+    public function testDateTimeParseLocaleFormatFallback(): void
+    {
+        $dateParser = $this->type->use('datetime');
+
+        $this->assertSame(
+            $dateParser,
+            $dateParser->setLocaleFormat('eee MMM dd yyyy HH:mm:ss')
+        );
+
+        $this->assertSame(
+            '2022-01-01T11:59:00.000+00:00',
+            $dateParser->parse('2022-01-01T11:59:00')->toISOString()
+        );
+    }
+
     public function testDateTimeParseNative(): void
     {
         $date = new \DateTime('@1640991551');

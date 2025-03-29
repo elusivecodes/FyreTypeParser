@@ -161,6 +161,7 @@ $parser = $typeParser->use('binary');
 
 ```php
 $parser = $typeParser->use('boolean');
+// or $typeParser->use('bool');
 ```
 
 ### Date
@@ -389,6 +390,7 @@ $parser = $typeParser->use('float');
 
 ```php
 $parser = $typeParser->use('integer');
+// or $typeParser->use('int');
 ```
 
 ### Json

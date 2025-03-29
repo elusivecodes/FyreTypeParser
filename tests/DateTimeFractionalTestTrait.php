@@ -101,6 +101,21 @@ trait DateTimeFractionalTestTrait
         );
     }
 
+    public function testDateTimeFractionalParseLocaleFormatFallback(): void
+    {
+        $dateParser = $this->type->use('datetime-fractional');
+
+        $this->assertSame(
+            $dateParser,
+            $dateParser->setLocaleFormat('eee MMM dd yyyy HH:mm:ss.SSS')
+        );
+
+        $this->assertSame(
+            '2022-01-01T11:59:00.000+00:00',
+            $dateParser->parse('2022-01-01T11:59:00.000')->toISOString()
+        );
+    }
+
     public function testDateTimeFractionalParseNative(): void
     {
         $date = new \DateTime('@1640991551');

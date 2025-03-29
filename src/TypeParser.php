@@ -21,11 +21,18 @@ use Fyre\DB\Types\TextType;
 use Fyre\DB\Types\TimeType;
 use Fyre\DB\Types\Type;
 
+use function array_key_exists;
+
 /**
  * TypeParser
  */
 class TypeParser
 {
+    protected const ALIASES = [
+        'bool' => 'boolean',
+        'int' => 'integer',
+    ];
+
     protected Container $container;
 
     protected array $handlers = [];
@@ -75,6 +82,10 @@ class TypeParser
      */
     public function getType(string $type): string
     {
+        if (array_key_exists($type, static::ALIASES) && !array_key_exists($type, $this->types)) {
+            $type = static::ALIASES[$type];
+        }
+
         return $this->types[$type] ?? StringType::class;
     }
 
@@ -99,8 +110,6 @@ class TypeParser
     {
         $this->types[$type] = $typeClass;
 
-        unset($this->handlers[$type]);
-
         return $this;
     }
 
@@ -112,19 +121,8 @@ class TypeParser
      */
     public function use(string $type): Type
     {
-        return $this->handlers[$type] ??= $this->build($type);
-    }
-
-    /**
-     * Build a Type class for a value type.
-     *
-     * @param string $type The value type.
-     * @return Type The Type.
-     */
-    protected function build(string $type): Type
-    {
         $typeClass = $this->getType($type);
 
-        return $this->container->build($typeClass);
+        return $this->handlers[$typeClass] ??= $this->container->build($typeClass);
     }
 }

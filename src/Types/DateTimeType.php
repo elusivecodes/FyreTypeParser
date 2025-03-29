@@ -6,9 +6,11 @@ namespace Fyre\DB\Types;
 use DateTimeInterface;
 use DateTimeZone;
 use Fyre\DateTime\DateTime;
+use Throwable;
 
 use function ctype_digit;
 use function is_scalar;
+use function is_string;
 
 /**
  * DateTimeType
@@ -34,8 +36,6 @@ class DateTimeType extends Type
 
     protected string|null $serverTimeZone = null;
 
-    protected bool $startOfDay = false;
-
     protected string|null $userTimeZone = null;
 
     /**
@@ -51,8 +51,8 @@ class DateTimeType extends Type
         }
 
         if (ctype_digit((string) $value)) {
-            $date = DateTime::fromTimestamp($value, $this->serverTimeZone);
-        } else {
+            $date = DateTime::fromTimestamp((int) $value, $this->serverTimeZone);
+        } else if (is_string($value)) {
             $timeZoneName = $this->serverTimeZone ?? DateTime::now()->getTimeZone();
             $timeZone = new DateTimeZone($timeZoneName);
 
@@ -62,10 +62,6 @@ class DateTimeType extends Type
 
         if ($this->userTimeZone && $date->getTimeZone() !== $this->userTimeZone) {
             $date = $date->setTimeZone($this->userTimeZone);
-        }
-
-        if ($this->startOfDay) {
-            $date = $date->startOfDay();
         }
 
         return $date;
@@ -116,34 +112,35 @@ class DateTimeType extends Type
         $date = null;
 
         if (is_scalar($value) && ctype_digit((string) $value)) {
-            $date = DateTime::fromTimestamp($value, $this->userTimeZone);
+            $date = DateTime::fromTimestamp((int) $value, $this->userTimeZone);
         } else if ($value instanceof DateTime) {
             $date = $value;
         } else if ($value instanceof DateTimeInterface) {
             $date = DateTime::fromDateTime($value, $this->userTimeZone);
-        } else if ($this->localeFormat) {
-            $date = DateTime::fromFormat($this->localeFormat, $value, $this->userTimeZone);
-        } else {
-            $timeZoneName = $this->userTimeZone ?? DateTime::getDefaultTimeZone();
-            $timeZone = new DateTimeZone($timeZoneName);
-
-            foreach ($this->formats as $format) {
-                $tempDate = \DateTime::createFromFormat($format, $value, $timeZone);
-
-                if (!$tempDate) {
-                    continue;
+        } else if (is_string($value)) {
+            if ($this->localeFormat) {
+                try {
+                    $date = DateTime::fromFormat($this->localeFormat, $value, $this->userTimeZone);
+                } catch (Throwable $e) {
+                    $date = null;
                 }
-
-                $date = DateTime::fromDateTime($tempDate, $this->userTimeZone);
             }
-        }
 
-        if ($date === null) {
-            return null;
-        }
+            if ($date === null) {
+                $timeZoneName = $this->userTimeZone ?? DateTime::getDefaultTimeZone();
+                $timeZone = new DateTimeZone($timeZoneName);
 
-        if ($this->startOfDay) {
-            $date = $date->startOfDay();
+                foreach ($this->formats as $format) {
+                    $tempDate = \DateTime::createFromFormat($format, $value, $timeZone);
+
+                    if (!$tempDate) {
+                        continue;
+                    }
+
+                    $date = DateTime::fromDateTime($tempDate, $this->userTimeZone);
+                    break;
+                }
+            }
         }
 
         return $date;

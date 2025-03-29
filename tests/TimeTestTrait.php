@@ -109,6 +109,21 @@ trait TimeTestTrait
         );
     }
 
+    public function testTimeParseLocaleFormatFallback(): void
+    {
+        $timeParser = $this->type->use('time');
+
+        $this->assertSame(
+            $timeParser,
+            $timeParser->setLocaleFormat('hh:mm:ss aa')
+        );
+
+        $this->assertSame(
+            '11:59:00',
+            $timeParser->parse('11:59:00')->format('HH:mm:ss')
+        );
+    }
+
     public function testTimeParseNative(): void
     {
         $date = new \DateTime('@1640991551');

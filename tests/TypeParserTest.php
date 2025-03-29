@@ -42,6 +42,19 @@ final class TypeParserTest extends TestCase
 
     protected TypeParser $type;
 
+    public function testAlias(): void
+    {
+        $this->assertSame(
+            $this->type->getType('boolean'),
+            $this->type->getType('bool'),
+        );
+
+        $this->assertSame(
+            $this->type->getType('integer'),
+            $this->type->getType('int'),
+        );
+    }
+
     public function testGetType(): void
     {
         $this->assertSame(
