@@ -33,8 +33,6 @@ class TypeParser
         'int' => 'integer',
     ];
 
-    protected Container $container;
-
     protected array $handlers = [];
 
     protected array $types = [
@@ -61,10 +59,9 @@ class TypeParser
      *
      * @param Container $container The Container.
      */
-    public function __construct(Container $container)
-    {
-        $this->container = $container;
-    }
+    public function __construct(
+        protected Container $container
+    ) {}
 
     /**
      * Clear all loaded types.
