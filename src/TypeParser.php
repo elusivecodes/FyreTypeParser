@@ -20,6 +20,7 @@ use Fyre\DB\Types\StringType;
 use Fyre\DB\Types\TextType;
 use Fyre\DB\Types\TimeType;
 use Fyre\DB\Types\Type;
+use Fyre\Utility\Traits\MacroTrait;
 
 use function array_key_exists;
 
@@ -28,6 +29,8 @@ use function array_key_exists;
  */
 class TypeParser
 {
+    use MacroTrait;
+
     protected const ALIASES = [
         'bool' => 'boolean',
         'int' => 'integer',

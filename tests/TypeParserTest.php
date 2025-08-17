@@ -21,7 +21,10 @@ use Fyre\DB\Types\SetType;
 use Fyre\DB\Types\StringType;
 use Fyre\DB\Types\TextType;
 use Fyre\DB\Types\TimeType;
+use Fyre\Utility\Traits\MacroTrait;
 use PHPUnit\Framework\TestCase;
+
+use function class_uses;
 
 final class TypeParserTest extends TestCase
 {
@@ -93,6 +96,14 @@ final class TypeParserTest extends TestCase
                 'time' => TimeType::class,
             ],
             $this->type->getTypeMap()
+        );
+    }
+
+    public function testMacroable(): void
+    {
+        $this->assertContains(
+            MacroTrait::class,
+            class_uses(TypeParser::class)
         );
     }
 
