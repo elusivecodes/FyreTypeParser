@@ -71,7 +71,7 @@ trait DateTimeFractionalTestTrait
 
     public function testDateTimeFractionalParseDateTime(): void
     {
-        $date = DateTime::fromTimestamp(1640991551);
+        $date = DateTime::createFromTimestamp(1640991551);
 
         $this->assertSame(
             $date,
@@ -201,7 +201,7 @@ trait DateTimeFractionalTestTrait
 
     public function testDateTimeFractionalToDatabase(): void
     {
-        $date = DateTime::fromTimestamp(1640991551);
+        $date = DateTime::createFromTimestamp(1640991551);
 
         $this->assertSame(
             '2021-12-31 22:59:11.000000',
@@ -222,7 +222,7 @@ trait DateTimeFractionalTestTrait
 
         $dateParser->setServerTimeZone('Australia/Brisbane');
 
-        $date = DateTime::fromTimestamp(1640991551);
+        $date = DateTime::createFromTimestamp(1640991551);
 
         $this->assertSame(
             '2022-01-01 08:59:11.000000',

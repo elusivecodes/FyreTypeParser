@@ -51,17 +51,17 @@ class DateTimeType extends Type
         }
 
         if (ctype_digit((string) $value)) {
-            $date = DateTime::fromTimestamp((int) $value, $this->serverTimeZone);
+            $date = DateTime::createFromTimestamp((int) $value, $this->serverTimeZone);
         } else if (is_string($value)) {
             $timeZoneName = $this->serverTimeZone ?? DateTime::now()->getTimeZone();
             $timeZone = new DateTimeZone($timeZoneName);
 
             $date = new \DateTime($value, $timeZone);
-            $date = DateTime::fromDateTime($date, $this->userTimeZone);
+            $date = DateTime::createFromNativeDateTime($date, $this->userTimeZone);
         }
 
         if ($this->userTimeZone && $date->getTimeZone() !== $this->userTimeZone) {
-            $date = $date->setTimeZone($this->userTimeZone);
+            $date = $date->withTimeZone($this->userTimeZone);
         }
 
         return $date;
@@ -112,15 +112,15 @@ class DateTimeType extends Type
         $date = null;
 
         if (is_scalar($value) && ctype_digit((string) $value)) {
-            $date = DateTime::fromTimestamp((int) $value, $this->userTimeZone);
+            $date = DateTime::createFromTimestamp((int) $value, $this->userTimeZone);
         } else if ($value instanceof DateTime) {
             $date = $value;
         } else if ($value instanceof DateTimeInterface) {
-            $date = DateTime::fromDateTime($value, $this->userTimeZone);
+            $date = DateTime::createFromNativeDateTime($value, $this->userTimeZone);
         } else if (is_string($value)) {
             if ($this->localeFormat) {
                 try {
-                    $date = DateTime::fromFormat($this->localeFormat, $value, $this->userTimeZone);
+                    $date = DateTime::createFromFormat($this->localeFormat, $value, $this->userTimeZone);
                 } catch (Throwable $e) {
                     $date = null;
                 }
@@ -137,7 +137,7 @@ class DateTimeType extends Type
                         continue;
                     }
 
-                    $date = DateTime::fromDateTime($tempDate, $this->userTimeZone);
+                    $date = DateTime::createFromNativeDateTime($tempDate, $this->userTimeZone);
                     break;
                 }
             }
@@ -200,11 +200,11 @@ class DateTimeType extends Type
         }
 
         if ($this->serverTimeZone && $value->getTimeZone() !== $this->serverTimeZone) {
-            $value = $value->setTimeZone($this->serverTimeZone);
+            $value = $value->withTimeZone($this->serverTimeZone);
         }
 
         return $value
-            ->toDateTime()
+            ->toNativeDateTime()
             ->format($this->serverFormat);
     }
 }

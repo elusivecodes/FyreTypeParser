@@ -71,7 +71,7 @@ trait DateTimeTimeZoneTestTrait
 
     public function testDateTimeTimeZoneParseDateTime(): void
     {
-        $date = DateTime::fromTimestamp(1640991551);
+        $date = DateTime::createFromTimestamp(1640991551);
 
         $this->assertSame(
             $date,
@@ -201,7 +201,7 @@ trait DateTimeTimeZoneTestTrait
 
     public function testDateTimeTimeZoneToDatabase(): void
     {
-        $date = DateTime::fromTimestamp(1640991551);
+        $date = DateTime::createFromTimestamp(1640991551);
 
         $this->assertSame(
             '2021-12-31 22:59:11.000000+00:00',
@@ -222,7 +222,7 @@ trait DateTimeTimeZoneTestTrait
 
         $dateParser->setServerTimeZone('Australia/Brisbane');
 
-        $date = DateTime::fromTimestamp(1640991551);
+        $date = DateTime::createFromTimestamp(1640991551);
 
         $this->assertSame(
             '2022-01-01 08:59:11.000000+10:00',
