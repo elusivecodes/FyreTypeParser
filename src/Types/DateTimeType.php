@@ -6,6 +6,7 @@ namespace Fyre\DB\Types;
 use DateTimeInterface;
 use DateTimeZone;
 use Fyre\DateTime\DateTime;
+use Override;
 use Throwable;
 
 use function ctype_digit;
@@ -44,6 +45,7 @@ class DateTimeType extends Type
      * @param mixed $value The database value.
      * @return DateTime|null The PHP value.
      */
+    #[Override]
     public function fromDatabase(mixed $value): DateTime|null
     {
         if ($value === null) {
@@ -103,6 +105,7 @@ class DateTimeType extends Type
      * @param mixed $value The user value.
      * @return DateTime|null The PHP value.
      */
+    #[Override]
     public function parse(mixed $value): DateTime|null
     {
         if ($value === null) {
@@ -191,6 +194,7 @@ class DateTimeType extends Type
      * @param mixed $value The PHP value.
      * @return string|null The database value.
      */
+    #[Override]
     public function toDatabase(mixed $value): string|null
     {
         $value = $this->parse($value);

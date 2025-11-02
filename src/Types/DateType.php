@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Fyre\DB\Types;
 
 use Fyre\DateTime\DateTime;
+use Override;
 
 /**
  * DateType
@@ -24,6 +25,7 @@ class DateType extends DateTimeType
      * @param mixed $value The database value.
      * @return DateTime|null The PHP value.
      */
+    #[Override]
     public function fromDatabase(mixed $value): DateTime|null
     {
         $date = parent::fromDatabase($value);
@@ -37,6 +39,7 @@ class DateType extends DateTimeType
      * @param mixed $value The user value.
      * @return DateTime|null The PHP value.
      */
+    #[Override]
     public function parse(mixed $value): DateTime|null
     {
         $date = parent::parse($value);

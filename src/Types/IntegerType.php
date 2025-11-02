@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Fyre\DB\Types;
 
+use Override;
+
 use function filter_var;
 
 use const FILTER_NULL_ON_FAILURE;
@@ -19,6 +21,7 @@ class IntegerType extends Type
      * @param mixed $value The user value.
      * @return int|null The PHP value.
      */
+    #[Override]
     public function parse(mixed $value): int|null
     {
         if ($value === null) {

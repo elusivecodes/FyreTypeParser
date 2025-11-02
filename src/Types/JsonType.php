@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Fyre\DB\Types;
 
+use Override;
+
 use function json_decode;
 use function json_encode;
 
@@ -19,6 +21,7 @@ class JsonType extends Type
      * @param mixed $value The database value.
      * @return mixed The PHP value.
      */
+    #[Override]
     public function fromDatabase(mixed $value): mixed
     {
         if ($value === null) {
@@ -47,6 +50,7 @@ class JsonType extends Type
      * @param mixed $value The PHP value.
      * @return string|null The database value.
      */
+    #[Override]
     public function toDatabase(mixed $value): string|null
     {
         if ($value === null) {

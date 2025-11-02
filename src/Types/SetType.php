@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Fyre\DB\Types;
 
+use Override;
 use Stringable;
 
 use function explode;
@@ -21,6 +22,7 @@ class SetType extends Type
      * @param mixed $value The user value.
      * @return string|null The PHP value.
      */
+    #[Override]
     public function parse(mixed $value): array|null
     {
         if (is_array($value)) {
@@ -40,6 +42,7 @@ class SetType extends Type
      * @param mixed $value The PHP value.
      * @return string|null The database value.
      */
+    #[Override]
     public function toDatabase(mixed $value): string|null
     {
         if (is_array($value)) {

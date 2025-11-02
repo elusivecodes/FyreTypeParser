@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Fyre\DB\Types;
 
+use Override;
+
 use function base64_encode;
 use function fopen;
 use function is_resource;
@@ -19,6 +21,7 @@ class BinaryType extends Type
      * @param mixed $value The database value.
      * @return mixed The PHP value.
      */
+    #[Override]
     public function fromDatabase(mixed $value): mixed
     {
         if (is_string($value)) {
